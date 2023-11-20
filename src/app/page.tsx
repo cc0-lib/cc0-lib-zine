@@ -1,113 +1,196 @@
-import Image from 'next/image'
+import CountDown from "@/components/ui/countdown";
+import Link from "next/link";
+
+const infos = [
+  "27 NOV 2023",
+  "LIMITED TO 50",
+  "62 PAGES",
+  "NFT ON ZORA NETWORK",
+  "0.03ETH [SHIPPING + TAX]",
+  "FIRST COME FIRST SERVE",
+  "MINT & REDEEM",
+];
+
+const live = true;
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <main className="flex min-h-screen flex-col items-center justify-between bg-grayB text-zinc-800">
+      <div
+        id="home"
+        className="s1 flex h-screen w-full flex-col justify-between px-12 py-8"
+      >
+        <div className="s1-top flex flex-row items-center justify-between font-chakra text-xl font-medium uppercase text-zinc-800">
+          <div className="title flex flex-row items-center justify-center gap-4">
+            <h1 className="">CC0-LIB ZINE &gt; </h1>
+            <h1 className="text-sm">Special Edition 01 </h1>
+          </div>
+          <div className="menu flex gap-2">
+            <Link
+              href="#info"
+              className="px-2 hover:bg-prim hover:text-zinc-800"
+            >
+              Info
+            </Link>
+            <span>/</span>
+            <Link
+              href="#buy"
+              aria-disabled={!live}
+              className={`${
+                !live && "pointer-events-none line-through"
+              } " px-2 hover:bg-prim hover:text-zinc-800`}
+            >
+              buy
+            </Link>
+            <span>/</span>
+            <Link
+              className="px-2 hover:bg-prim hover:text-zinc-800"
+              href="#details"
+            >
+              details
+            </Link>
+            <span>/</span>
+            <Link
+              href="#faq"
+              className="px-2 hover:bg-prim hover:text-zinc-800"
+            >
+              FAQ
+            </Link>
+          </div>
+        </div>
+        <div className="s1-mid relative flex h-full w-full scale-100 flex-col items-center justify-between p-8 xl:scale-125">
+          <div className="relative -mb-32 flex h-full w-full items-center">
+            <img
+              src="./cc0-lib-h.svg"
+              alt="cc0-lib-logo-horizontal"
+              className="pointer-events-none absolute left-1/3 h-5/6 scale-150"
             />
-          </a>
+          </div>
+          <div className="z-10 bg-prim px-10 py-8 font-chakra text-6xl font-medium tracking-widest">
+            {live ? (
+              <h1 className="tracking-normal">SPECIAL EDITION 01</h1>
+            ) : (
+              <CountDown date="Nov 27, 2023 00:00:00" />
+            )}
+          </div>
+          <div className="relative -mt-32 flex h-full w-full items-center">
+            <img
+              src="./cc0-lib-h.svg"
+              alt="cc0-lib-logo-horizontal"
+              className="pointer-events-none absolute -left-1/3 h-5/6 scale-150"
+            />
+          </div>
+        </div>
+        <div className="s1-btm flex flex-row items-center justify-between font-chakra text-xl font-medium uppercase text-zinc-800">
+          <div className="flex flex-row items-center justify-center gap-4">
+            {live ? (
+              <div className="bg-prim px-4 py-2 text-center">
+                <h1 className="">LIVE</h1>
+              </div>
+            ) : (
+              <div className="bg-[#A7A8A3] px-4 py-2 text-center">
+                <h1 className="">OFFLINE</h1>
+              </div>
+            )}
+            <h1 className="text-sm">
+              MADE IN [{live ? "MALAYSIA" : "REDACTED"}]
+            </h1>
+          </div>
+          <h1 className="">CC0-LIB.WTF</h1>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div
+        id="info"
+        className="s2 flex h-screen w-full flex-col justify-between bg-grayC px-12 py-8 font-chakra"
+      >
+        <div className="s2 flex h-screen w-full flex-col justify-between px-12 py-8">
+          <div className="s2-mid relative flex h-full w-full flex-col items-center justify-between">
+            <div className="relative -mb-32 flex h-full w-full items-center">
+              <span className="text-grayD absolute right-1/4 scale-100 text-[250px] font-bold xl:scale-125">
+                SPECIAL
+              </span>
+            </div>
+            <div className="z-10 w-full max-w-prose bg-prim p-20 text-justify font-jetbrains text-4xl font-medium uppercase">
+              {infos.map((data, index) => (
+                <div className="inline-flex gap-2" key={index}>
+                  <span className="break-all hover:bg-zinc-800 hover:text-prim">
+                    {data}
+                  </span>
+                  {index !== infos.length - 1 && (
+                    <span className="mr-2 self-center text-2xl">++</span>
+                  )}
+                </div>
+              ))}
+              {/* 27 NOV 2023 / limited to 50 / 62 pages / nft on zora network /
+              0.03eth [shipping + tax] / first come first serve / mint & redeem */}
+            </div>
+            <div className="relative -mt-32 flex h-full w-full items-center">
+              <span className="text-grayD absolute left-1/4 scale-100 text-[250px] font-bold xl:scale-125">
+                EDITION
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div
+        id="buy"
+        className="s3 flex h-screen w-full flex-row justify-around font-chakra"
+      >
+        <div className="flex h-auto w-full flex-col items-center justify-around p-12">
+          <div className="h-auto w-full">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-sm">SPECIAL EDITION 01</span>
+              <span className="text-5xl font-medium">CC0-LIB ZINE</span>
+            </div>
+            <div className="mt-16 max-w-prose px-12 text-center font-jetbrains">
+              A celebration of creativity and artistic expression. Inside this
+              zine, you will discover a creative haven that explores the
+              captivating Nouns ecosystem, a curated collection of artworks from
+              talented Nouns artists showcasing their unique visions and talents
+              and the powerful influence of the creative commons zero ethos.
+            </div>
+          </div>
+          <div className="flex w-full flex-col items-center text-center ">
+            <Divider className="mb-8 max-w-xs" />
+            <span className="text-5xl font-medium">34/50</span>
+            <span className="text-lg uppercase">sold</span>
+            <Divider className="mt-2 max-w-xs" />
+          </div>
+          {/* <div
+            id="connect-wallet"
+            className="flex w-full items-center justify-center"
+          ></div> */}
+          <Link href="#">
+            <button className="bg-[#2F2F2F] px-8 py-4 text-2xl text-white">
+              SIGN IN
+            </button>
+          </Link>
+        </div>
+        <div className="max-h-screen w-full overflow-y-auto">
+          <div className="h-[1500px] w-full bg-red-500 text-center">
+            <img
+              src="https://musho.imgix.net/images/street_photography-17.png?auto=compress"
+              alt=""
+            />
+            <img
+              src="https://musho.imgix.net/images/lucg__modern_balcan_vernacular_architecture_interior_design_oly_cb7e3712-acd5-4847-870e-576950193b19.png?auto=compress"
+              alt=""
+            />
+            <img
+              src="https://images.unsplash.com/photo-1525247663235-1d5a3ae627fd?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt=""
+            />
+          </div>
+        </div>
       </div>
     </main>
-  )
+  );
 }
+
+const Divider = ({ className }: { className?: string }) => {
+  return (
+    <span
+      className={`${className} h-4 w-full border-b-2 border-zinc-800`}
+    ></span>
+  );
+};
