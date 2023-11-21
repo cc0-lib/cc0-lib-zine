@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 
 type CountDownProps = {
   date: string;
@@ -33,10 +33,12 @@ const CountDown = ({ date }: CountDownProps) => {
     return () => clearInterval(timer);
   }, [date]);
   return (
-    <div>
-      {countDown.days}D:{countDown.hours}H:{countDown.minutes}M:
-      {countDown.seconds}S
-    </div>
+    <Suspense fallback={<div>D:H:M:S</div>}>
+      <div>
+        {countDown.days}D:{countDown.hours}H:{countDown.minutes}M:
+        {countDown.seconds}S
+      </div>
+    </Suspense>
   );
 };
 
