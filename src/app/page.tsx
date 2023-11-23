@@ -1,12 +1,7 @@
 import CountDown from "@/components/ui/countdown";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
 import Link from "next/link";
+import DetailsSection from "@/components/details-section";
+import FaqSection from "@/components/faq-section";
 
 const infos = [
   "27 NOV 2023",
@@ -18,10 +13,12 @@ const infos = [
   "MINT & REDEEM",
 ];
 
-const live = false;
+const mintState: MintState = "offline";
 const sold = 0;
 
 export default function Home() {
+  const live = mintState !== "live" ? false : true;
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between bg-grayB text-zinc-800">
       <div
@@ -64,6 +61,10 @@ export default function Home() {
             >
               FAQ
             </Link>
+            <span></span>
+            <button className="px-2 hover:bg-prim hover:text-zinc-800">
+              [ CONNECT ]
+            </button>
           </div>
         </div>
         <div className="s1-mid relative flex h-full w-full scale-100 flex-col items-center justify-between p-8 xl:scale-125">
@@ -172,17 +173,41 @@ export default function Home() {
           </button>
         </div>
         <div className="max-h-screen w-full overflow-y-auto">
-          <div className="h-[1500px] w-full bg-red-500 text-center">
+          <div className="h-[1500px] min-h-screen w-full text-center">
             <img
-              src="https://musho.imgix.net/images/street_photography-17.png?auto=compress"
+              className="min-h-screen object-cover"
+              // src="./images/cv-png/zine-p-12.png"
+              src="./images/cv-png/zine-p-19.png"
               alt=""
             />
             <img
-              src="https://musho.imgix.net/images/lucg__modern_balcan_vernacular_architecture_interior_design_oly_cb7e3712-acd5-4847-870e-576950193b19.png?auto=compress"
+              className="min-h-screen object-cover"
+              src="./images/cv-png/zine-p-2.png"
               alt=""
             />
             <img
-              src="https://images.unsplash.com/photo-1525247663235-1d5a3ae627fd?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              className="min-h-screen object-cover"
+              src="./images/cv-png/zine-p-7.png"
+              alt=""
+            />
+            <img
+              className="min-h-screen object-cover"
+              src="./images/cv-png/zine-p-16.png"
+              alt=""
+            />
+            <img
+              className="min-h-screen object-cover"
+              src="./images/cv-png/zine-p-1.png"
+              alt=""
+            />
+            <img
+              className="min-h-screen object-cover"
+              src="./images/cv-png/zine-p-17.png"
+              alt=""
+            />
+            <img
+              className="min-h-screen object-cover"
+              src="./images/cv-png/zine-p-18.png"
               alt=""
             />
           </div>
@@ -190,207 +215,22 @@ export default function Home() {
       </div>
       <div
         id="details"
-        className="s4 relative flex h-screen max-h-screen w-full flex-col items-center justify-around bg-grayC font-chakra"
+        className="s4 relative flex h-screen max-h-screen w-full flex-col items-center justify-around overflow-hidden bg-grayC font-chakra"
       >
-        <>
-          <img
-            src="https://placehold.co/600x400/000000/FFF?text=3"
-            className="absolute w-96 -translate-y-16 translate-x-52 shadow-2xl shadow-black/50"
-            alt="pics"
-          />
-          <img
-            src="https://placehold.co/600x400/3D3D3D/E9FF5F?text=2"
-            className="absolute w-96 -translate-x-32 -translate-y-40 shadow-2xl shadow-black/50"
-            alt="pics"
-          />
-          <img
-            src="https://placehold.co/600x400/E9FF5F/3D3D3D?text=1"
-            className="absolute w-96 translate-y-36 shadow-2xl shadow-prim/50"
-            alt="pics"
-          />
-        </>
+        <DetailsSection />
       </div>
+
       <div
         id="faq"
         className="s5 relative my-16 flex h-auto min-h-screen w-full flex-col items-center font-chakra"
       >
-        <div className="my-16 text-5xl ">FAQ</div>
-        <div className="flex w-full max-w-3xl flex-col gap-8">
-          <Accordion type="single" collapsible defaultValue="item-1">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                What is CC0-LIB ZINE NFT?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 text-left font-jetbrains">
-                We created a NFT for a digital mint of CC0-Lib Special Edition
-                Zine 01. It can be used to redeem for a physical copy of CC0-Lib
-                Zine 62-page print issue, produced by Team CC0-Lib.
-                <br />
-                <br />
-                In order to receive a physical copy of the print issue, you will
-                need to mint the NFT and fill out your delivery details to
-                receive your print issue by mail. And now just wait for its
-                arrival at your doorstep.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                Can I cancel once minted?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                No, once minted, the NFT is non-refundable and this action is
-                irreversible. If you do not wish to keep the NFT, you can sell
-                the NFT on the secondary market, transfer it to someone else, or
-                redeem it for the physical issue.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                Do I have to redeem the NFT to receive a physical copy?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                Yes, you can only get the physical copy after you redeem your
-                NFT and fill out your shipping information. However, if you are
-                not interested in receiving a physical copy, you can:
-                <br />
-                <br />
-                <ul className="list-inside list-disc">
-                  <li>Keep the NFT</li>
-                  <li>Sell the NFT on the secondary market</li>
-                  <li>Transfer the NFT to someone else</li>
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-4">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                What&apos;s included in the physical copy?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                A zine and bundle of stickers. Each shipment comes with a
-                double-box packaging for safety purposes.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-5">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                What forms of payment do you accept to purchase the NFT?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                Ethereum (ETH) only.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-6">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                How much does each NFT cost?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                Each NFT costs 0.03 ETH. It includes international shipping &
-                tax.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-7">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                How many NFTs are available for minting?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                There are a total of 50 NFTs = 50 Pcs of physical zine available
-                for public.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-8">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                How many will I be able to mint?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                A limit of 1 NFT per wallet. 1 NFT = 1 physical zine once
-                redeemed
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-9">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                How long is the minting window?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                You can mint the CC0-Lib Special Edition Zine 01 NFT while the
-                supply lasts.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-10">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                How long is the redemption window open for?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                The redemption is available from Nov 27, 2023 until February 27,
-                2024
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-11">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                Does the physical issue ship everywhere?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                We ship worldwide.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-12">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                Is shipping included?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                Yes, shipping & tax is included.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-13">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                Can I send this NFT to someone else to redeem?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                Yes, you can gift the Zora Zine Print Issue 001 NFT to someone
-                else to redeem provided that you have not redeemed it yourself.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-14">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                Will the contents of this print issue exist online as well?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                The contents of CC0-Lib Special Edition Zine 01 will be
-                exclusively available to NFT holders only via zine.cc0-lib.wtf.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-15">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                When will I receive my physical issue?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                This is dependent on when you decide to redeem your NFT.
-                Generally, physical print issues will begin shipping at the end
-                of Nov, 2023. Upon redemption, the shipping time will vary based
-                on your location.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-16">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                Am I able to return my physical issue?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                NFTs cannot be returned once they have been minted. On the other
-                hand, if you redeem the NFT for a print issue and you either
-                don&apos;t receive it or the issue is damaged, you may contact
-                us at zine@cc0-lib.wtf.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-17">
-              <AccordionTrigger className="text-left text-xl font-normal uppercase hover:underline">
-                How do I get in contact with Team CC0-Lib if I have any
-                questions about my order or changes to my delivery address,
-                payment details & etc?
-              </AccordionTrigger>
-              <AccordionContent className="ml-6 whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-                Please email zine@cc0-lib.wtf for further assistance
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
+        <FaqSection />
+      </div>
+      <div
+        id="separator-1"
+        className="sp-1 flex h-96 w-full flex-col items-center justify-center overflow-hidden font-chakra"
+      >
+        <img src="./images/cv-png/zine-p-3.png" className="w-full" alt="pics" />
       </div>
       <div
         id="footer"
