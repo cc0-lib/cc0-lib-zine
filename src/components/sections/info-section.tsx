@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion as m, useTransform, useScroll } from "framer-motion";
+import { motion as m, useTransform, useScroll, useSpring } from "framer-motion";
 
 const infos = [
   "27 NOV 2023",
@@ -21,11 +21,26 @@ const InfoSection = (props: Props) => {
     target: container,
     offset: ["start end", "end start"],
   });
-  const specialMove = useTransform(scrollYProgress, [0, 1], [200, 0]);
-  const editionMove = useTransform(scrollYProgress, [0, 1], [-200, 0]);
+  const specialMove = useSpring(
+    useTransform(scrollYProgress, [0, 1], [200, 0]),
+    {
+      stiffness: 400,
+      damping: 90,
+    },
+  );
+  const editionMove = useSpring(
+    useTransform(scrollYProgress, [0, 1], [-200, 0]),
+    {
+      stiffness: 400,
+      damping: 90,
+    },
+  );
 
   return (
-    <>
+    <div
+      id="info"
+      className="s2 flex h-screen w-full flex-col justify-between overflow-hidden bg-grayC px-12 py-8 font-chakra"
+    >
       <div
         ref={container}
         className="s2 flex h-screen w-full flex-col justify-between px-12 py-8"
@@ -63,7 +78,7 @@ const InfoSection = (props: Props) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -4,7 +4,10 @@ import Draggable from "react-draggable";
 
 const DetailsSection = () => {
   return (
-    <>
+    <div
+      id="details"
+      className="s4 relative flex h-screen max-h-screen w-full flex-col items-center justify-around overflow-hidden bg-grayC font-chakra"
+    >
       <DragImage pos={{ x: 0, y: 50 }} src="./images/z-gnars.png" />
       <DragImage pos={{ x: -150, y: 150 }} src="./images/z-jimijerong.png" />
       <DragImage pos={{ x: 300, y: -150 }} src="./images/z-basepaint.png" />
@@ -17,7 +20,7 @@ const DetailsSection = () => {
           Drag the images
         </p>
       </Draggable>
-    </>
+    </div>
   );
 };
 

@@ -31,7 +31,7 @@ const CountDown = ({ date }: CountDownProps) => {
       setCountDown({ days, hours, minutes, seconds });
     }, 1000);
     return () => clearInterval(timer);
-  }, [date]);
+  }, [date, countDownDate]);
   return (
     <Suspense fallback={<div>D:H:M:S</div>}>
       <div>

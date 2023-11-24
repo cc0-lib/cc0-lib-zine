@@ -18,7 +18,10 @@ const transition = {
 
 const FaqSection = (props: Props) => {
   return (
-    <>
+    <div
+      id="faq"
+      className="s5 relative my-16 flex h-auto min-h-screen w-full flex-col items-center font-chakra"
+    >
       <m.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -206,7 +209,7 @@ const FaqSection = (props: Props) => {
           </AccordionItem>
         </Accordion>
       </m.div>
-    </>
+    </div>
   );
 };
 

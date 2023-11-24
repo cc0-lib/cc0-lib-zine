@@ -1,12 +1,14 @@
-import React from "react";
-
+"use client";
 type Props = {
   sold: number;
 };
 
 const BuySection = ({ sold }: Props) => {
   return (
-    <>
+    <div
+      id="buy"
+      className="s3 flex h-screen w-full flex-row justify-around font-chakra"
+    >
       <div className="flex h-auto w-full flex-col items-center justify-around p-12">
         <div className="h-auto w-full items-center justify-center">
           <div className="flex flex-col items-center gap-2">
@@ -33,47 +35,54 @@ const BuySection = ({ sold }: Props) => {
           SIGN IN TO MINT
         </button>
       </div>
-      <div className="max-h-screen w-full overflow-y-auto">
-        <div className="h-[1500px] min-h-screen w-full text-center">
+      <div data-lenis-prevent className="max-h-screen w-full overflow-y-auto">
+        <div className="flex h-[1500px] min-h-screen w-full flex-col text-center">
           <img
-            className="min-h-screen object-cover"
+            className="min-h-screen w-full bg-zinc-800 object-cover"
             // src="./images/cv-png/zine-p-12.png"
-            src="./images/cv-png/zine-p-19.png"
+            // src="./images/cv-png/zine-p-19.png"
+            src="./gallery/1.png"
             alt=""
           />
           <img
-            className="min-h-screen object-cover"
-            src="./images/cv-png/zine-p-2.png"
+            className="min-h-screen w-full bg-zinc-800 object-cover"
+            // src="./images/cv-png/zine-p-2.png"
+            src="./gallery/2.png"
             alt=""
           />
           <img
-            className="min-h-screen object-cover"
-            src="./images/cv-png/zine-p-7.png"
+            className="min-h-screen w-full bg-zinc-800 object-cover"
+            // src="./images/cv-png/zine-p-7.png"
+            src="./gallery/3.png"
             alt=""
           />
           <img
-            className="min-h-screen object-cover"
-            src="./images/cv-png/zine-p-16.png"
+            className="min-h-screen w-full bg-zinc-800 object-cover"
+            // src="./images/cv-png/zine-p-16.png"
+            src="./gallery/4.png"
             alt=""
           />
           <img
-            className="min-h-screen object-cover"
-            src="./images/cv-png/zine-p-1.png"
+            className="min-h-screen w-full bg-zinc-800 object-cover"
+            // src="./images/cv-png/zine-p-1.png"
+            src="./gallery/5.png"
             alt=""
           />
           <img
-            className="min-h-screen object-cover"
-            src="./images/cv-png/zine-p-17.png"
+            className="min-h-screen w-full bg-zinc-800 object-cover"
+            // src="./images/cv-png/zine-p-17.png"
+            src="./gallery/6.png"
             alt=""
           />
           <img
-            className="min-h-screen object-cover"
-            src="./images/cv-png/zine-p-18.png"
+            className="min-h-screen w-full bg-zinc-800 object-cover"
+            // src="./images/cv-png/zine-p-18.png"
+            src="./gallery/7.png"
             alt=""
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
