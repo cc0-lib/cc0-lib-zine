@@ -1,17 +1,9 @@
 import CountDown from "@/components/ui/countdown";
 import Link from "next/link";
-import DetailsSection from "@/components/details-section";
-import FaqSection from "@/components/faq-section";
-
-const infos = [
-  "27 NOV 2023",
-  "LIMITED TO 50 PCS",
-  "62 PAGES",
-  "NFT ON ZORA NETWORK",
-  "0.03ETH [SHIPPING + TAX]",
-  "FIRST COME FIRST SERVE",
-  "MINT & REDEEM",
-];
+import DetailsSection from "@/components/sections/details-section";
+import FaqSection from "@/components/sections/faq-section";
+import InfoSection from "@/components/sections/info-section";
+import BuySection from "@/components/sections/buy-section";
 
 const mintState: MintState = "offline";
 const sold = 0;
@@ -22,7 +14,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between bg-grayB text-zinc-800">
       <div
-        id="home"
+        id="main"
         className="s1 flex h-screen w-full flex-col justify-between overflow-hidden px-12 py-8"
       >
         <div className="s1-top flex flex-row items-center justify-between font-chakra text-xl font-medium uppercase text-zinc-800">
@@ -62,7 +54,7 @@ export default function Home() {
               FAQ
             </Link>
             <span></span>
-            <button className="px-2 hover:bg-prim hover:text-zinc-800">
+            <button className="px-2 hover:bg-zinc-800 hover:text-prim">
               [ CONNECT ]
             </button>
           </div>
@@ -105,113 +97,27 @@ export default function Home() {
               MADE IN [{live ? "MALAYSIA" : "REDACTED"}]
             </h1>
           </div>
-          <h1 className="">CC0-LIB.WTF</h1>
+          <Link
+            href="https://cc0-lib.wtf"
+            target="_blank"
+            rel="noopener
+          noreferrer"
+          >
+            <h1 className="px-4 py-2 hover:bg-prim">CC0-LIB.WTF</h1>
+          </Link>
         </div>
       </div>
       <div
         id="info"
         className="s2 flex h-screen w-full flex-col justify-between overflow-hidden bg-grayC px-12 py-8 font-chakra"
       >
-        <div className="s2 flex h-screen w-full flex-col justify-between px-12 py-8">
-          <div className="s2-mid relative flex h-full w-full flex-col items-center justify-between">
-            <div className="relative -mb-32 flex h-full w-full items-center">
-              <span className="text-grayD absolute right-1/4 scale-100 text-[250px] font-bold xl:scale-125">
-                SPECIAL
-              </span>
-            </div>
-            <div className="z-10 w-full max-w-prose bg-prim p-20 text-justify font-jetbrains text-4xl font-medium uppercase">
-              {infos.map((data, index) => (
-                <div className="inline-flex gap-2" key={index}>
-                  <span className="break-all hover:bg-zinc-800 hover:text-prim">
-                    {data}
-                  </span>
-                  {index !== infos.length - 1 && (
-                    <span className="mr-2 self-center text-2xl">++</span>
-                  )}
-                </div>
-              ))}
-              {/* 27 NOV 2023 / limited to 50 / 62 pages / nft on zora network /
-              0.03eth [shipping + tax] / first come first serve / mint & redeem */}
-            </div>
-            <div className="relative -mt-32 flex h-full w-full items-center">
-              <span className="text-grayD absolute left-1/4 scale-100 text-[250px] font-bold xl:scale-125">
-                EDITION
-              </span>
-            </div>
-          </div>
-        </div>
+        <InfoSection />
       </div>
       <div
         id="buy"
         className="s3 flex h-screen w-full flex-row justify-around font-chakra"
       >
-        <div className="flex h-auto w-full flex-col items-center justify-around p-12">
-          <div className="h-auto w-full items-center justify-center">
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-sm">SPECIAL EDITION 01</span>
-              <span className="text-5xl font-medium">CC0-LIB ZINE</span>
-            </div>
-            <div className="mt-16 flex flex-col items-center">
-              <p className="max-w-prose px-12 text-center font-jetbrains">
-                A celebration of creativity and artistic expression. Inside this
-                zine, you will discover a creative haven that explores the
-                captivating Nouns ecosystem, a curated collection of artworks
-                from talented Nouns artists showcasing their unique visions and
-                talents and the powerful influence of the creative commons zero
-                ethos.
-              </p>
-            </div>
-          </div>
-          <div className="flex w-full flex-col items-center text-center ">
-            <Divider className="mb-8 max-w-xs" />
-            <span className="text-5xl font-medium">{sold}/50</span>
-            <span className="text-lg uppercase">minted</span>
-            <Divider className="mt-2 max-w-xs" />
-          </div>
-          <button className="bg-[#2F2F2F] px-8 py-4 text-2xl text-white hover:bg-prim hover:text-zinc-800">
-            SIGN IN TO MINT
-          </button>
-        </div>
-        <div className="max-h-screen w-full overflow-y-auto">
-          <div className="h-[1500px] min-h-screen w-full text-center">
-            <img
-              className="min-h-screen object-cover"
-              // src="./images/cv-png/zine-p-12.png"
-              src="./images/cv-png/zine-p-19.png"
-              alt=""
-            />
-            <img
-              className="min-h-screen object-cover"
-              src="./images/cv-png/zine-p-2.png"
-              alt=""
-            />
-            <img
-              className="min-h-screen object-cover"
-              src="./images/cv-png/zine-p-7.png"
-              alt=""
-            />
-            <img
-              className="min-h-screen object-cover"
-              src="./images/cv-png/zine-p-16.png"
-              alt=""
-            />
-            <img
-              className="min-h-screen object-cover"
-              src="./images/cv-png/zine-p-1.png"
-              alt=""
-            />
-            <img
-              className="min-h-screen object-cover"
-              src="./images/cv-png/zine-p-17.png"
-              alt=""
-            />
-            <img
-              className="min-h-screen object-cover"
-              src="./images/cv-png/zine-p-18.png"
-              alt=""
-            />
-          </div>
-        </div>
+        <BuySection sold={sold} />
       </div>
       <div
         id="details"
@@ -248,11 +154,3 @@ export default function Home() {
     </main>
   );
 }
-
-const Divider = ({ className }: { className?: string }) => {
-  return (
-    <span
-      className={`${className} h-4 w-full border-b-2 border-zinc-800`}
-    ></span>
-  );
-};
