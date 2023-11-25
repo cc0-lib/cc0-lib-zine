@@ -6,7 +6,7 @@ const TEST_ZORA_URL =
   "https://testnet.zora.co/collect/zgor:" + TEST_COLLECTION_ADDRESS;
 const GAS_FEES = 0.001;
 const MINT_PRICE = 0.03 + GAS_FEES;
-const MINT_STATE: MintState = "offline";
+const MINT_STATE: MintState = "live";
 const DEMO_SOLD = 50;
 const CHAIN = "TESTNET"; // MAINNET or TESTNET
 

@@ -1,7 +1,26 @@
-import { CHAIN } from "../constants";
+import {
+  CHAIN,
+  COLLECTION_ADDRESS,
+  TEST_COLLECTION_ADDRESS,
+} from "../constants";
 
 const chain = CHAIN === "TESTNET" ? "ZORA_GOERLI" : "ZORA_MAINNET"; // ZORA_MAINNET or ZORA_GOERLI
-const checkSupply = async (collectionAddress: string) => {
+const collectionAddress =
+  CHAIN === "TESTNET" ? TEST_COLLECTION_ADDRESS : COLLECTION_ADDRESS;
+
+const oldQ = `
+  query {
+    collections(
+        networks: {network: ZORA, chain: ${chain}}
+        where: {collectionAddresses: "${collectionAddress}"}
+      ) {
+        nodes {
+          totalSupply
+        }
+      }
+  }
+  `;
+const checkSupply = async () => {
   try {
     const response = await fetch(`https://api.zora.co/graphql`, {
       method: "POST",
@@ -10,24 +29,23 @@ const checkSupply = async (collectionAddress: string) => {
       },
       body: JSON.stringify({
         query: `
-          query {
-            collections(
-                networks: {network: ZORA, chain: ${chain}}
+          query TotalSupply {
+            aggregateStat {
+              nftCount(
                 where: {collectionAddresses: "${collectionAddress}"}
-              ) {
-                nodes {
-                  totalSupply
-                }
-              }
-          }
-          `,
+                networks: {network: ZORA, chain: ${chain}}
+              )
+            }
+          }`,
+        // query: oldQ,
       }),
       next: {
-        revalidate: 1,
+        revalidate: 60,
       },
     });
     const data = await response.json();
-    return data.data.collections.nodes[0].totalSupply;
+    return data.data.aggregateStat.nftCount;
+    // return data.data.collections.nodes[0].totalSupply;
   } catch (error) {
     console.log(error);
   }
