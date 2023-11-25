@@ -1,3 +1,4 @@
+import Web3Provider from "@/components/web3/web3-provider";
 import "./globals.css";
 import type { Metadata } from "next";
 
@@ -10,11 +11,11 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function RootLayout({ children }: Props) {
+export default async function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={`selection:bg-grayA selection:text-prim`}>
-        {children}
+        <Web3Provider>{children}</Web3Provider>
       </body>
     </html>
   );

@@ -4,12 +4,14 @@ import CountDown from "@/components/ui/countdown";
 import Link from "next/link";
 import { motion as m, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
+import ConnectButton from "../web3/connect-button";
 
 type Props = {
   mintState: MintState;
+  sold: number;
 };
 
-const MainSection = ({ mintState }: Props) => {
+const MainSection = ({ mintState, sold }: Props) => {
   const live = mintState !== "live" ? false : true;
   const mainContainer = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -79,10 +81,12 @@ const MainSection = ({ mintState }: Props) => {
           animate="visible"
           className="s1-top flex flex-row items-center justify-between font-chakra text-xl font-medium uppercase text-zinc-800"
         >
-          <div className="title flex flex-row items-center justify-center gap-4">
-            <h1>CC0-LIB ZINE &gt; </h1>
-            <h1 className="text-sm">Special Edition 01 </h1>
-          </div>
+          <Link href="/">
+            <div className="title flex flex-row items-center justify-center gap-4">
+              <h1>CC0-LIB ZINE &gt; </h1>
+              <h1 className="text-sm">Special Edition 01 </h1>
+            </div>
+          </Link>
           <div className="menu flex items-center gap-2">
             <Link
               href="#info"
@@ -110,7 +114,10 @@ const MainSection = ({ mintState }: Props) => {
             <span>/</span>
             <Link
               href="/redeem"
-              className="px-2 hover:bg-prim hover:text-zinc-800"
+              aria-disabled={!live && sold == 0}
+              className={`${
+                !live && sold == 0 && "pointer-events-none line-through"
+              } px-2 hover:bg-prim hover:text-zinc-800`}
             >
               REDEEM
             </Link>
@@ -121,14 +128,12 @@ const MainSection = ({ mintState }: Props) => {
             >
               FAQ
             </Link>
-            <button
-              onClick={() => {
-                alert("Connect Wallet");
-              }}
+            {/* <ConnectButton /> */}
+            {/* <button
               className="px-2 text-2xl hover:bg-zinc-800 hover:text-prim"
             >
               [ CONNECT ]
-            </button>
+            </button> */}
           </div>
         </m.div>
         <m.div className="s1-mid pointer-events-none relative flex h-full w-full scale-100 flex-col items-center justify-between p-8 xl:scale-125">
@@ -173,9 +178,15 @@ const MainSection = ({ mintState }: Props) => {
         >
           <div className="flex flex-row items-center justify-center gap-4">
             {live ? (
-              <div className="bg-prim px-4 py-2 text-center">
-                <h1 className="">LIVE</h1>
-              </div>
+              sold < 50 ? (
+                <div className="bg-prim px-4 py-2 text-center">
+                  <h1 className="">LIVE</h1>
+                </div>
+              ) : (
+                <div className="bg-prim px-4 py-2 text-center">
+                  <h1 className="">REDEEM PHASE</h1>
+                </div>
+              )
             ) : (
               <div className="bg-[#A7A8A3] px-4 py-2 text-center">
                 <h1 className="">OFFLINE</h1>

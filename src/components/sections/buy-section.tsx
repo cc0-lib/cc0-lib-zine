@@ -1,9 +1,49 @@
 "use client";
+
+import { CHAIN, MINT_PRICE, TEST_ZORA_URL, ZORA_URL } from "@/lib/constants";
+import { formatBalance } from "@/lib/utils/web3";
+import { ChainIcon, useModal, useSIWE } from "connectkit";
+import { CheckCircle, XCircle } from "lucide-react";
+import Link from "next/link";
+import { Suspense } from "react";
+import { useAccount, useBalance, useEnsName, useNetwork } from "wagmi";
+
 type Props = {
   sold: number;
+  live: boolean;
 };
 
-const BuySection = ({ sold }: Props) => {
+const BuySection = ({ sold, live }: Props) => {
+  const { isSignedIn } = useSIWE();
+  const { isConnected, address } = useAccount();
+  const {
+    data: balance,
+    isError: isBalanceError,
+    isLoading: isBalanceLoading,
+  } = useBalance({
+    address,
+    formatUnits: "ether",
+  });
+  const { chain } = useNetwork();
+
+  const { openOnboarding, setOpen, openSwitchNetworks, openSIWE } = useModal();
+
+  const checkBalanceEnough = () => {
+    if (balance) {
+      if (
+        (formatBalance(balance?.formatted, 3, "number") as number) > MINT_PRICE
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const mintNFT = async () => {};
+
   return (
     <div
       id="buy"
@@ -25,15 +65,130 @@ const BuySection = ({ sold }: Props) => {
             </p>
           </div>
         </div>
-        <div className="flex w-full flex-col items-center text-center ">
-          <Divider className="mb-8 max-w-xs" />
-          <span className="text-5xl font-medium">{sold}/50</span>
-          <span className="text-lg uppercase">minted</span>
-          <Divider className="mt-2 max-w-xs" />
+        {live && (
+          <div className="flex w-full flex-col items-center text-center ">
+            <Divider className="mb-8 max-w-xs" />
+            <span className="text-5xl font-medium">{sold}/50</span>
+            <span className="text-lg uppercase">
+              {sold == 50 ? "sold out" : "minted"}
+            </span>
+            <Divider className="mt-2 max-w-xs" />
+          </div>
+        )}
+
+        <div className="flex flex-row items-center gap-8">
+          <button
+            onClick={() => {
+              if (live) {
+                if (sold < 50) {
+                  alert("Minting");
+                  open(
+                    CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL,
+                    "_blank",
+                  );
+                } else {
+                  alert("Buying on secondary");
+                  open(
+                    CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL,
+                    "_blank",
+                  );
+                }
+              } else {
+                alert("Coming soon");
+              }
+            }}
+            className="bg-[#2F2F2F] px-8 py-4 text-xl uppercase text-white hover:bg-prim hover:text-zinc-800"
+          >
+            {live
+              ? sold < 50
+                ? "mint on zora"
+                : "secondary on zora"
+              : "coming soon"}
+          </button>
+          {sold == 50 && (
+            <Link href="/redeem">
+              <button className="bg-[#2F2F2F] px-8 py-4 text-xl uppercase text-white hover:bg-prim hover:text-zinc-800">
+                REDEEM
+              </button>
+            </Link>
+          )}
+
+          {/* {isConnected && (
+            <button
+              className="flex flex-row gap-4 uppercase"
+              onClick={() => openSwitchNetworks()}
+            >
+              Current Network:{" "}
+              {chain?.name === "Zora" ? (
+                <img
+                  src="./zora-logo.png"
+                  className="h-6 w-6"
+                  alt="zora-logo"
+                />
+              ) : (
+                <ChainIcon id={chain?.id} />
+              )}
+            </button>
+          )} */}
+
+          {/* {balance && (
+            <span className="flex flex-row items-center gap-2 text-sm uppercase">
+              BALANCE: {formatBalance(balance?.formatted)}{" "}
+              {chain?.nativeCurrency?.symbol}
+              {checkBalanceEnough() ? (
+                <CheckCircle className="h-4 w-4 text-green-600" />
+              ) : (
+                <XCircle className="h-4 w-4 text-red-500" />
+              )}
+            </span>
+          )} */}
+
+          {/* <button
+            onClick={() => {
+              if (sold < 50) {
+                if (isConnected) {
+                  if (chain?.name === "Zora") {
+                    if (isSignedIn) {
+                      if (live) {
+                        if (checkBalanceEnough()) {
+                          alert("Minting");
+                        } else {
+                          // alert("Insufficient balance");
+                        }
+                      } else {
+                        // alert("Minting offline");
+                      }
+                    } else {
+                      openSIWE();
+                    }
+                  } else {
+                    openSwitchNetworks();
+                  }
+                } else {
+                  setOpen(true);
+                }
+              } else {
+                alert("Sold out");
+              }
+            }}
+            className="bg-[#2F2F2F] px-8 py-4 text-2xl uppercase text-white hover:bg-prim hover:text-zinc-800"
+            disabled={sold == 50}
+          >
+            {sold < 50
+              ? isConnected
+                ? chain?.name === "Zora"
+                  ? isSignedIn
+                    ? live
+                      ? checkBalanceEnough()
+                        ? "Mint now"
+                        : "Insufficient balance"
+                      : "Minting offline"
+                    : "Sign in to mint"
+                  : "Switch Network to Zora"
+                : "Connect to mint"
+              : "Sold out"}
+          </button> */}
         </div>
-        <button className="bg-[#2F2F2F] px-8 py-4 text-2xl text-white hover:bg-prim hover:text-zinc-800">
-          SIGN IN TO MINT
-        </button>
       </div>
       <div data-lenis-prevent className="max-h-screen w-full overflow-y-auto">
         <div className="flex h-[1500px] min-h-screen w-full flex-col text-center">
