@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion as m, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import ConnectButton from "../web3/connect-button";
+import SplitLetters from "../anim/split-letters";
 
 type Props = {
   mintState: MintState;
@@ -36,8 +37,16 @@ const MainSection = ({ mintState, sold }: Props) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
+        staggerChildren: 0.25,
+      },
+    },
+  };
+  const stagChildrenTwo = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
       },
     },
   };
@@ -65,78 +74,94 @@ const MainSection = ({ mintState, sold }: Props) => {
       },
     },
   };
+
   return (
     <>
       <m.div
         id="main"
+        key="main-section"
         ref={mainContainer}
         variants={stagChildren}
         initial="hidden"
         animate="visible"
+        exit="hidden"
         className="s1 flex h-screen w-full flex-col justify-between overflow-hidden px-12 py-8"
       >
         <m.div
-          variants={animationOne}
-          initial="hidden"
-          animate="visible"
+          variants={childrenAnim}
           className="s1-top flex flex-row items-center justify-between font-chakra text-xl font-medium uppercase text-zinc-800"
         >
           <Link href="/">
-            <div className="title flex flex-row items-center justify-center gap-4">
-              <h1>CC0-LIB ZINE &gt; </h1>
-              <h1 className="text-sm">Special Edition 01 </h1>
-            </div>
+            <m.div
+              variants={stagChildren}
+              initial="hidden"
+              animate="visible"
+              className="title flex flex-row items-center justify-center gap-4"
+            >
+              <m.h1 variants={childrenAnim}>CC0-LIB ZINE &gt; </m.h1>
+              <m.h1 variants={childrenAnim} className="text-sm">
+                Special Edition 01{" "}
+              </m.h1>
+            </m.div>
           </Link>
-          <div className="menu flex items-center gap-2">
-            <Link
-              href="#info"
-              className="px-2 hover:bg-prim hover:text-zinc-800"
-            >
-              Info
-            </Link>
-            <span>/</span>
-            <Link
+          <m.div
+            variants={stagChildrenTwo}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="menu flex items-center gap-2"
+          >
+            <AnimatedLink key="menu-info" href="#info">
+              INFO
+            </AnimatedLink>
+            <SlashAnim />
+            <AnimatedLink
+              key="menu-buy"
               href="#buy"
-              aria-disabled={!live}
-              className={`${
-                !live && "pointer-events-none line-through"
-              } " px-2 hover:bg-prim hover:text-zinc-800`}
-            >
-              buy
-            </Link>
-            <span>/</span>
-            <Link
-              className="px-2 hover:bg-prim hover:text-zinc-800"
-              href="#details"
-            >
-              details
-            </Link>
-            <span>/</span>
-            <Link
-              href="/redeem"
-              aria-disabled={!live && sold == 0}
               className={`${
                 !live && sold == 0 && "pointer-events-none line-through"
-              } px-2 hover:bg-prim hover:text-zinc-800`}
+              }`}
+              ariaDisabled={!live && sold == 0}
+            >
+              BUY
+            </AnimatedLink>
+            <SlashAnim />
+
+            <AnimatedLink key="menu-details" href="#details">
+              DETAILS
+            </AnimatedLink>
+            <SlashAnim />
+            <AnimatedLink
+              key="menu-redeem"
+              href="/redeem"
+              className={`${
+                !live && sold == 0 && "pointer-events-none line-through"
+              }`}
+              ariaDisabled={!live && sold == 0}
             >
               REDEEM
-            </Link>
-            <span>/</span>
-            <Link
-              href="#faq"
-              className="px-2 hover:bg-prim hover:text-zinc-800"
+            </AnimatedLink>
+            <SlashAnim />
+            <AnimatedLink
+              key="menu-check"
+              href="/check"
+              className={`${
+                !live && sold == 0 && "pointer-events-none line-through"
+              }`}
+              ariaDisabled={!live && sold == 0}
             >
+              CHECK
+            </AnimatedLink>
+            <SlashAnim />
+            <AnimatedLink key="menu-faq" href="#faq">
               FAQ
-            </Link>
-            {/* <ConnectButton /> */}
-            {/* <button
-              className="px-2 text-2xl hover:bg-zinc-800 hover:text-prim"
-            >
-              [ CONNECT ]
-            </button> */}
-          </div>
+            </AnimatedLink>
+          </m.div>
         </m.div>
-        <m.div className="s1-mid pointer-events-none relative flex h-full w-full scale-100 flex-col items-center justify-between p-8 xl:scale-125">
+        <m.div
+          variants={childrenAnim}
+          className="s1-mid pointer-events-none relative flex h-full w-full scale-100 flex-col items-center justify-between p-8 xl:scale-125"
+        >
           <m.div
             style={{ x: heroText1 }}
             className="relative -mb-32 flex h-full w-full items-center"
@@ -149,12 +174,15 @@ const MainSection = ({ mintState, sold }: Props) => {
           </m.div>
           <m.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ delay: 0.1, duration: 0.4, ease: "easeInOut" }}
             className="z-10 bg-prim px-10 py-8 font-chakra text-6xl font-medium tracking-widest"
           >
             {live ? (
-              <h1 className="tracking-normal">SPECIAL EDITION 01</h1>
+              <h1 className="tracking-normal">
+                <SplitLetters text="SPECIAL EDITION 01" />
+              </h1>
             ) : (
               <CountDown date="Nov 27, 2023 00:00:00" />
             )}
@@ -171,31 +199,44 @@ const MainSection = ({ mintState, sold }: Props) => {
           </m.div>
         </m.div>
         <m.div
-          variants={animationTwo}
+          variants={childrenAnim}
           initial="hidden"
           animate="visible"
+          exit="hidden"
           className="s1-btm flex flex-row items-center justify-between font-chakra text-xl font-medium uppercase text-zinc-800"
         >
-          <div className="flex flex-row items-center justify-center gap-4">
+          <m.div
+            variants={stagChildren}
+            className="flex flex-row items-center justify-center gap-4"
+          >
             {live ? (
               sold < 50 ? (
-                <div className="bg-prim px-4 py-2 text-center">
+                <m.div
+                  variants={childrenAnim}
+                  className="bg-prim px-4 py-2 text-center"
+                >
                   <h1 className="">LIVE</h1>
-                </div>
+                </m.div>
               ) : (
-                <div className="bg-prim px-4 py-2 text-center">
+                <m.div
+                  variants={childrenAnim}
+                  className="bg-prim px-4 py-2 text-center"
+                >
                   <h1 className="">REDEEM PHASE</h1>
-                </div>
+                </m.div>
               )
             ) : (
-              <div className="bg-[#A7A8A3] px-4 py-2 text-center">
+              <m.div
+                variants={childrenAnim}
+                className="bg-[#A7A8A3] px-4 py-2 text-center"
+              >
                 <h1 className="">OFFLINE</h1>
-              </div>
+              </m.div>
             )}
-            <h1 className="text-sm">
+            <m.h1 variants={childrenAnim} className="text-sm">
               MADE IN [{live ? "MALAYSIA" : "REDACTED"}]
-            </h1>
-          </div>
+            </m.h1>
+          </m.div>
           <Link
             href="https://cc0-lib.wtf"
             target="_blank"
@@ -211,3 +252,43 @@ const MainSection = ({ mintState, sold }: Props) => {
 };
 
 export default MainSection;
+
+const childrenAnim = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const AnimatedLink = ({
+  href,
+  children,
+  className,
+  ariaDisabled,
+}: {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  ariaDisabled?: boolean;
+}) => {
+  return (
+    <m.div variants={childrenAnim}>
+      <Link
+        className={`${className} px-2 hover:bg-prim hover:text-zinc-800`}
+        aria-disabled={ariaDisabled}
+        href={href}
+      >
+        {children}
+      </Link>
+    </m.div>
+  );
+};
+
+const SlashAnim = () => {
+  return <m.span variants={childrenAnim}>/</m.span>;
+};

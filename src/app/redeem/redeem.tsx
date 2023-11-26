@@ -1,14 +1,21 @@
 "use client";
 
-import ConnectButton from "@/components/web3/connect-button";
 import Link from "next/link";
 import { useAccount } from "wagmi";
-import checkOwner from "@/lib/zora-api/check-owner";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import { useSIWE } from "connectkit";
-import Lenis from "@studio-freight/lenis";
-import TextEdit from "@/components/edit/text-edit";
+import { useModal, useSIWE } from "connectkit";
+import {
+  AnimatePresence,
+  motion as m,
+  useScroll,
+  useSpring,
+} from "framer-motion";
 import * as z from "zod";
+
+import checkOwner from "@/lib/zora-api/check-owner";
+import Lenis from "@studio-freight/lenis";
+import ConnectButton from "@/components/web3/connect-button";
+import TextEdit from "@/components/edit/text-edit";
 import { checkTokenIDClaimed, submitForm } from "./action";
 
 type TokenData = {
@@ -34,11 +41,13 @@ const RedeemPage = () => {
   const { address } = useAccount();
   const { isSignedIn } = useSIWE();
 
+  const { setOpen } = useModal();
+
   const [ownerToken, setOwnerToken] = useState<TokenData | null>(null);
   const [formData, setFormData] = useState<FormDataType>({
     name: "John Doe",
     address: "Your physical address",
-    wallet_address: address!,
+    wallet_address: address || "",
     token_id: Number(ownerToken?.tokenId),
     social: "@johndoe",
     email: "john@doe.wtf",
@@ -50,12 +59,44 @@ const RedeemPage = () => {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [formError, setFormError] = useState<string>("");
   const [idClaimed, setIdClaimed] = useState<boolean>(false);
+  const [startScroll, setStartScroll] = useState(false);
 
   const nullTokenData: TokenData = {
     isOwner: false,
     name: "",
     owner: "",
     tokenId: "",
+  };
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 90,
+  });
+
+  const animationOne = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const animationTwo = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        delay: 1,
+        ease: "easeInOut",
+      },
+    },
   };
 
   const getOwnerToken = useCallback(async () => {
@@ -173,7 +214,6 @@ const RedeemPage = () => {
   useEffect(() => {
     setIdClaimed(false);
     setFormSubmitted(false);
-    setOwnerToken(nullTokenData);
     setFormEdited(false);
     setFormValid(false);
     setFormError("");
@@ -196,6 +236,15 @@ const RedeemPage = () => {
       }));
     }
   }, [ownerToken]);
+
+  useEffect(() => {
+    if (address && address.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        wallet_address: address,
+      }));
+    }
+  }, [address]);
 
   useEffect(() => {
     checkZineClaimed();
@@ -225,63 +274,125 @@ const RedeemPage = () => {
     requestAnimationFrame(raf);
   }, []);
 
+  useEffect(() => {
+    scrollYProgress.on("change", (a) => {
+      if (a > 0.01) {
+        setStartScroll(true);
+      } else {
+        setStartScroll(false);
+      }
+    });
+  }, [scrollYProgress]);
+
   return (
     <>
       <div
         id="main"
         className="relative flex min-h-screen flex-col items-center justify-between bg-zinc-800  px-12 py-8 text-zinc-200"
       >
-        <div className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl">
+        <div
+          id="scroller"
+          className="fixed left-0 top-0 z-20 h-4 w-full bg-zinc-800"
+        >
+          <m.div
+            style={{ scaleX }}
+            className="h-4 w-full origin-left bg-prim"
+          />
+        </div>
+        <m.div
+          variants={animationOne}
+          initial="hidden"
+          animate="visible"
+          className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl"
+        >
           <span>REDEEM PHASE</span>
           <ConnectButton />
-        </div>
-        <div className="flex flex-col items-center justify-around gap-10 font-jetbrains">
-          <Suspense fallback={<div>Loading...</div>}>
-            <span className="font-chakra text-9xl uppercase text-prim">
-              {isSignedIn
-                ? ownerToken?.isOwner
-                  ? idClaimed
-                    ? "Claimed"
-                    : "Eligible"
-                  : "Not eligible"
-                : "-=-++-=+"}
-            </span>
-          </Suspense>
+        </m.div>
+        <m.div
+          variants={animationTwo}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center justify-around gap-10 font-jetbrains"
+        >
+          <span className="font-chakra text-9xl uppercase text-prim">
+            <AnimatePresence mode="wait">
+              {isSignedIn ? (
+                ownerToken?.isOwner ? (
+                  idClaimed ? (
+                    <FadeText id="redeem-0">Claimed</FadeText>
+                  ) : (
+                    <FadeText id="redeem-1">Eligible</FadeText>
+                  )
+                ) : (
+                  <FadeText id="redeem-2">Not Eligible</FadeText>
+                )
+              ) : (
+                <FadeText id="redeem-3">-=-++-=+</FadeText>
+              )}
+            </AnimatePresence>
+          </span>
 
           <Suspense fallback={<div>Loading...</div>}>
             <div className="flex flex-col items-center justify-around gap-4 font-jetbrains uppercase">
-              <Link
-                href={`${
-                  isSignedIn && ownerToken?.isOwner && !idClaimed
-                    ? "#form"
-                    : "#"
-                }`}
-                className="w-full max-w-xl text-center text-3xl"
+              <button
+                onClick={() => {
+                  if (isSignedIn) {
+                    if (ownerToken?.isOwner && !idClaimed) {
+                      window.location.href = "#form";
+                    }
+                  } else {
+                    setOpen(true);
+                  }
+                }}
+                className="w-full max-w-xl text-center text-3xl uppercase"
               >
-                {isSignedIn
-                  ? ownerToken && ownerToken.isOwner
-                    ? idClaimed
-                      ? "Thank you. please check your email for tracking details"
-                      : "Proceed"
-                    : "Sorry, you are not eligible to redeem"
-                  : "Please sign in"}
-              </Link>
+                <AnimatePresence mode="wait">
+                  {isSignedIn ? (
+                    ownerToken && ownerToken.isOwner ? (
+                      idClaimed ? (
+                        <FadeText id="redeem-4">
+                          Thank you. please check your email for tracking
+                          details
+                        </FadeText>
+                      ) : (
+                        <FadeText id="redeem-5">Click to proceed</FadeText>
+                      )
+                    ) : (
+                      <FadeText id="redeem-6">
+                        Sorry, you are not eligible to redeem
+                      </FadeText>
+                    )
+                  ) : (
+                    <FadeText id="redeem-7">Please sign in</FadeText>
+                  )}
+                </AnimatePresence>
+              </button>
             </div>
           </Suspense>
-        </div>
-        <div className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl ">
+        </m.div>
+        <m.div
+          variants={animationOne}
+          initial="hidden"
+          animate="visible"
+          className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl "
+        >
           <div className="border-2 border-prim px-8 py-2 text-center text-prim">
             <h1 className="">ONLINE</h1>
           </div>
           <Link href="/">
-            <span>BACK TO HOME</span>
+            <span className="px-4 py-2 hover:bg-prim hover:text-zinc-800">
+              BACK TO HOME
+            </span>
           </Link>
-        </div>
+        </m.div>
       </div>
       {!idClaimed && isSignedIn && (
-        <div
+        <m.div
+          variants={animationTwo}
+          initial="hidden"
+          animate="visible"
           id="form"
-          className="relative flex min-h-screen flex-col items-center justify-between bg-zinc-800  px-12 py-8 text-zinc-200"
+          className="relative flex min-h-screen flex-col items-center justify-between bg-zinc-900  px-12 py-8 text-zinc-200"
         >
           <span></span>
           <div className="flex flex-col items-center justify-around gap-10 font-jetbrains">
@@ -329,16 +440,37 @@ const RedeemPage = () => {
             </div>
             <span>
               <div className="flex max-w-prose flex-col items-center justify-around gap-4 font-jetbrains text-lg uppercase">
-                {/* {formValid && formEdited && (
-                <span className="text-green-500">Form is valid</span>
-              )} */}
+                {formValid && formEdited && !formSubmitted && (
+                  <m.span
+                    variants={animationOne}
+                    initial="hidden"
+                    animate="visible"
+                    className="text-sm text-green-500"
+                  >
+                    Form is valid
+                  </m.span>
+                )}
                 {formSubmitted && (
-                  <span className="text-center text-green-500">
+                  <m.span
+                    variants={animationOne}
+                    initial="hidden"
+                    animate="visible"
+                    className="max-w-lg text-center text-sm text-green-500"
+                  >
                     Thank you! PACKAGE WILL BE SENT IN 2-3 DAYS TIME. PACKAGE
                     TRACKING DETAILS WILL BE SENT TO YOUR EMAIL{" "}
-                  </span>
+                  </m.span>
                 )}
-                {formError && <span className="text-red-500">{formError}</span>}
+                {formError && (
+                  <m.span
+                    variants={animationOne}
+                    initial="hidden"
+                    animate="visible"
+                    className="max-w-lg text-center text-sm text-red-500"
+                  >
+                    {formError}
+                  </m.span>
+                )}
               </div>
             </span>
             <button
@@ -353,10 +485,23 @@ const RedeemPage = () => {
           </div>
 
           <span></span>
-        </div>
+        </m.div>
       )}
     </>
   );
 };
 
 export default RedeemPage;
+
+const FadeText = ({ id, children }: { id: string; children: string }) => {
+  return (
+    <m.span
+      key={id}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, ease: "backOut" }}
+      exit={{ opacity: 0 }}
+    >
+      {children}
+    </m.span>
+  );
+};

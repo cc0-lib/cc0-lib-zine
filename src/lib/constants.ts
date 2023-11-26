@@ -8,7 +8,7 @@ const GAS_FEES = 0.001;
 const MINT_PRICE = 0.03 + GAS_FEES;
 const MINT_STATE: MintState = "live";
 const DEMO_SOLD = 50;
-const CHAIN = "TESTNET"; // MAINNET or TESTNET
+const CHAIN: ChainType = "TESTNET"; // MAINNET or TESTNET
 
 export {
   COLLECTION_ADDRESS,

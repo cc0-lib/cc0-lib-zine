@@ -1,5 +1,7 @@
 "use client";
 
+import { motion as m } from "framer-motion";
+
 import Draggable from "react-draggable";
 
 const DetailsSection = () => {
@@ -42,7 +44,12 @@ const DragImage = ({
   if (test) {
     return (
       <Draggable position={pos} bounds="parent">
-        <img
+        <m.img
+          initial={{ opacity: 0 }}
+          whileInView={{
+            opacity: 1,
+          }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           src={src}
           draggable="false"
           className={`absolute w-1/3 cursor-move rounded-md shadow-lg shadow-zinc-700/50 ${className}`}
@@ -53,7 +60,12 @@ const DragImage = ({
   } else {
     return (
       <Draggable defaultPosition={pos} bounds="parent">
-        <img
+        <m.img
+          initial={{ opacity: 0 }}
+          whileInView={{
+            opacity: 1,
+          }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           src={src}
           draggable="false"
           className={`absolute w-1/3 cursor-move rounded-md shadow-lg shadow-zinc-700/50 ${className}`}

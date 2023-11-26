@@ -24,7 +24,7 @@ const FaqSection = (props: Props) => {
     >
       <m.div
         initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        whileInView={{ y: 0, opacity: 1 }}
         transition={{ transition }}
         className="my-16 text-5xl "
       >
@@ -32,7 +32,7 @@ const FaqSection = (props: Props) => {
       </m.div>
       <m.div
         initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        whileInView={{ y: 0, opacity: 1 }}
         transition={{ ...transition, delay: 0.1 }}
         className="flex w-full max-w-3xl flex-col gap-8"
       >

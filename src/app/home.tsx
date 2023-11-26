@@ -1,6 +1,12 @@
 "use client";
 
-import { motion as m, useScroll, useSpring, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion as m,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Lenis from "@studio-freight/lenis";
@@ -47,60 +53,84 @@ export default function HomePage({ sold }: { sold: number }) {
   }, []);
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-between bg-grayB text-zinc-800">
-      <div
-        id="scroller"
-        className="fixed left-0 top-0 z-20 h-4 w-full bg-zinc-800"
-      >
-        <m.div style={{ scaleX }} className="h-4 w-full origin-left bg-prim" />
-      </div>
-      {startScroll && (
-        <Link href="/" className="fixed bottom-8 right-8 z-30">
-          <ChevronUpCircle className="h-12 w-12 text-zinc-800 hover:opacity-50" />
-        </Link>
-      )}
-      <MainSection mintState={mintState} sold={sold} />
-      <InfoSection />
-      <BuySection sold={sold} live={live} />
-      <DetailsSection />
-      <FaqSection />
+    <AnimatePresence mode="wait">
+      <main className="relative flex min-h-screen flex-col items-center justify-between bg-grayB text-zinc-800">
+        <div
+          id="scroller"
+          className="fixed left-0 top-0 z-20 h-4 w-full bg-zinc-800"
+        >
+          <m.div
+            style={{ scaleX }}
+            className="h-4 w-full origin-left bg-prim"
+          />
+        </div>
+        {startScroll && (
+          <Link href="/" className="fixed bottom-8 right-8 z-30">
+            <ChevronUpCircle className="h-12 w-12 text-zinc-800 hover:opacity-50" />
+          </Link>
+        )}
+        <MainSection mintState={mintState} sold={sold} />
+        <InfoSection />
+        <BuySection sold={sold} live={live} />
+        <DetailsSection />
+        <FaqSection />
 
-      {/* <div
+        {/* <div
         id="separator-1"
         className="sp-1 flex h-96 w-full flex-col items-center justify-center overflow-hidden font-chakra"
       >
         <img src="./images/cv-png/zine-p-3.png" className="w-full" alt="pics" />
       </div> */}
 
-      <div
-        id="footer"
-        className="s6 relative flex h-auto w-full flex-col items-center bg-[#E7E7E7] py-16 font-chakra"
-      >
-        <div className="flex items-center gap-16">
-          <Link
-            href="https://nouns.wtf"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              src="./noggles.svg"
-              alt="noggles"
-              className="h-6 hover:opacity-50"
-            />
-          </Link>
-          <Link
-            href="https://cc0-lib.wtf"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              src="./cc0-lib-h.svg"
-              alt="cc0-lib-logo-horizontal"
-              className="h-6 hover:opacity-50"
-            />
-          </Link>
+        <div
+          id="footer"
+          className="s6 relative flex h-auto w-full flex-col items-center bg-[#E7E7E7] py-16 font-chakra"
+        >
+          <div className="flex items-center gap-16">
+            <Link
+              href="https://nouns.wtf"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <m.img
+                variants={AnimFadeIn}
+                initial="hidden"
+                whileInView="visible"
+                src="./noggles.svg"
+                alt="noggles"
+                className="h-6 hover:opacity-50"
+              />
+            </Link>
+            <Link
+              href="https://cc0-lib.wtf"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <m.img
+                variants={AnimFadeIn}
+                initial="hidden"
+                whileInView="visible"
+                src="./cc0-lib-h.svg"
+                alt="cc0-lib-logo-horizontal"
+                className="h-6 hover:opacity-50"
+              />
+            </Link>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </AnimatePresence>
   );
 }
+
+const AnimFadeIn = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delat: 0.5,
+      duration: 0.55,
+      ease: "easeInOut",
+    },
+  },
+};

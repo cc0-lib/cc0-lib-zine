@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion as m, useTransform, useScroll, useSpring } from "framer-motion";
+import SplitLetters from "../anim/split-letters";
 
 const infos = [
   "27 NOV 2023",
@@ -12,6 +13,27 @@ const infos = [
   "FIRST COME FIRST SERVE",
   "MINT & REDEEM",
 ];
+
+const stagChildren = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+};
+
+const childrenAnim = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeInOut",
+    },
+  },
+};
 
 type Props = {};
 
@@ -49,21 +71,41 @@ const InfoSection = (props: Props) => {
           <div className="relative -mb-32 flex h-full w-full items-center">
             <m.span
               style={{ x: specialMove }}
-              className="text-grayD absolute right-1/4 scale-100 text-[250px] font-bold xl:scale-125"
+              className="absolute right-1/4 scale-100 text-[250px] font-bold text-grayD xl:scale-125"
             >
-              SPECIAL
+              <SplitLetters text="SPECIAL" duration={2} />
             </m.span>
           </div>
-          <m.div className="z-10 w-full max-w-prose bg-prim p-20 text-justify font-jetbrains text-4xl font-medium uppercase">
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ delay: 0.1, duration: 0.3, ease: "easeInOut" }}
+            viewport={{
+              once: true,
+            }}
+            className="z-10 w-full max-w-prose bg-prim p-20 text-justify font-jetbrains text-4xl font-medium uppercase"
+          >
             {infos.map((data, index) => (
-              <div className="inline-flex gap-2" key={index}>
+              <m.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{
+                  delay: 0.1 * index,
+                  duration: 1,
+                  ease: "backOut",
+                }}
+                className="inline-flex gap-2"
+                key={index}
+              >
                 <span className="break-all hover:bg-zinc-800 hover:text-prim">
                   {data}
                 </span>
                 {index !== infos.length - 1 && (
                   <span className="mr-2 self-center text-2xl">++</span>
                 )}
-              </div>
+              </m.div>
             ))}
             {/* 27 NOV 2023 / limited to 50 / 62 pages / nft on zora network /
               0.03eth [shipping + tax] / first come first serve / mint & redeem */}
@@ -71,9 +113,9 @@ const InfoSection = (props: Props) => {
           <div className="relative -mt-32 flex h-full w-full items-center">
             <m.span
               style={{ x: editionMove }}
-              className="text-grayD absolute left-1/4 scale-100 text-[250px] font-bold xl:scale-125"
+              className="absolute left-1/4 scale-100 text-[250px] font-bold text-grayD xl:scale-125"
             >
-              EDITION
+              <SplitLetters text="EDITION" duration={2} />
             </m.span>
           </div>
         </div>
