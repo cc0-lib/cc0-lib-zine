@@ -9,8 +9,7 @@ import { useSIWE } from "connectkit";
 import Lenis from "@studio-freight/lenis";
 import TextEdit from "@/components/edit/text-edit";
 import * as z from "zod";
-import { submitForm } from "./action";
-import db from "@/lib/db";
+import { checkTokenIDClaimed, submitForm } from "./action";
 
 type TokenData = {
   isOwner: boolean;
@@ -85,12 +84,11 @@ const RedeemPage = () => {
   const checkZineClaimed = useCallback(async () => {
     if (!ownerToken) return null;
 
-    const { data, error } = await db
-      .from("zine-one")
-      .select("token_id")
-      .eq("token_id", Number(ownerToken?.tokenId));
+    const { data, error } = await checkTokenIDClaimed(
+      Number(ownerToken?.tokenId),
+    );
 
-    if (data && data.length > 0) {
+    if (data && data[0]?.token_id === Number(ownerToken?.tokenId)) {
       setIdClaimed(true);
     }
 
@@ -173,6 +171,15 @@ const RedeemPage = () => {
   };
 
   useEffect(() => {
+    setIdClaimed(false);
+    setFormSubmitted(false);
+    setOwnerToken(nullTokenData);
+    setFormEdited(false);
+    setFormValid(false);
+    setFormError("");
+  }, [address]);
+
+  useEffect(() => {
     if (isSignedIn && address) {
       getOwnerToken();
     }
@@ -244,7 +251,11 @@ const RedeemPage = () => {
           <Suspense fallback={<div>Loading...</div>}>
             <div className="flex flex-col items-center justify-around gap-4 font-jetbrains uppercase">
               <Link
-                href="#form"
+                href={`${
+                  isSignedIn && ownerToken?.isOwner && !idClaimed
+                    ? "#form"
+                    : "#"
+                }`}
                 className="w-full max-w-xl text-center text-3xl"
               >
                 {isSignedIn

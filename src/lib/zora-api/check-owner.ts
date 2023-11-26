@@ -1,3 +1,5 @@
+"use server";
+
 import {
   CHAIN,
   COLLECTION_ADDRESS,
@@ -34,7 +36,7 @@ const checkOwner = async (address: string) => {
           `,
       }),
       next: {
-        revalidate: 1,
+        revalidate: 60,
       },
     });
     const data = await response.json();

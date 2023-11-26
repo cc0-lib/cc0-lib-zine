@@ -2,10 +2,34 @@
 
 import db from "@/lib/db";
 import { FormDataType } from "./redeem";
+import { revalidatePath } from "next/cache";
 
 type ResultType = {
   data: any | null;
   error: string | null;
+};
+
+export const checkTokenIDClaimed = async (
+  tokenID: number,
+): Promise<ResultType> => {
+  const { data, error } = await db
+    .from("zine-one")
+    .select("token_id")
+    .eq("token_id", tokenID);
+
+  revalidatePath("/redeem");
+
+  if (error) {
+    return {
+      data: null,
+      error: error.message,
+    };
+  }
+
+  return {
+    data,
+    error: null,
+  };
 };
 
 export const submitForm = async (form: FormDataType): Promise<ResultType> => {
@@ -14,7 +38,7 @@ export const submitForm = async (form: FormDataType): Promise<ResultType> => {
     "address",
     "wallet_address",
     "token_id",
-    "social",
+    "email",
   ];
 
   for (const field of requiredFields) {
@@ -48,6 +72,8 @@ export const submitForm = async (form: FormDataType): Promise<ResultType> => {
         },
       ])
       .select();
+
+    revalidatePath("/redeem");
 
     if (error) {
       return {
