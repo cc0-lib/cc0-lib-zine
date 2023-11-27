@@ -73,9 +73,17 @@ export default function HomePage({
           />
         </div>
         {startScroll && (
-          <Link href="/" className="fixed bottom-8 right-8 z-30">
+          <button
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            }}
+            className="fixed bottom-8 right-8 z-30"
+          >
             <ChevronUpCircle className="h-12 w-12 text-zinc-800 hover:opacity-50" />
-          </Link>
+          </button>
         )}
         <MainSection live={live} sold={sold} time={time} />
         <InfoSection />

@@ -5,7 +5,7 @@ import { motion as m, useTransform, useScroll, useSpring } from "framer-motion";
 import SplitLetters from "../anim/split-letters";
 
 const infos = [
-  "27 NOV 2023",
+  "XX XXX 2023",
   "LIMITED TO 50 PCS",
   "62 PAGES",
   "NFT ON ZORA NETWORK",
@@ -107,8 +107,6 @@ const InfoSection = (props: Props) => {
                 )}
               </m.div>
             ))}
-            {/* 27 NOV 2023 / limited to 50 / 62 pages / nft on zora network /
-              0.03eth [shipping + tax] / first come first serve / mint & redeem */}
           </m.div>
           <div className="relative -mt-32 flex h-full w-full items-center">
             <m.span

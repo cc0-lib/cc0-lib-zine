@@ -112,25 +112,26 @@ const MainSection = ({ live, sold, time }: Props) => {
             exit="hidden"
             className="menu flex items-center gap-2"
           >
-            <AnimatedLink key="menu-info" href="#info">
+            <AnimatedLinkScroll key="menu-info" scroll={1}>
               INFO
-            </AnimatedLink>
+            </AnimatedLinkScroll>
             <SlashAnim />
-            <AnimatedLink
+            <AnimatedLinkScroll
               key="menu-buy"
-              href="#buy"
+              scroll={2}
               className={`${
                 !live && sold == 0 && "pointer-events-none line-through"
               }`}
               ariaDisabled={!live && sold == 0}
             >
               BUY
-            </AnimatedLink>
+            </AnimatedLinkScroll>
+
             <SlashAnim />
 
-            <AnimatedLink key="menu-details" href="#details">
+            <AnimatedLinkScroll key="menu-details" scroll={3}>
               DETAILS
-            </AnimatedLink>
+            </AnimatedLinkScroll>
             <SlashAnim />
             <AnimatedLink
               key="menu-redeem"
@@ -154,9 +155,9 @@ const MainSection = ({ live, sold, time }: Props) => {
               CHECK
             </AnimatedLink>
             <SlashAnim />
-            <AnimatedLink key="menu-faq" href="#faq">
+            <AnimatedLinkScroll key="menu-faq" scroll={4}>
               FAQ
-            </AnimatedLink>
+            </AnimatedLinkScroll>
           </m.div>
         </m.div>
         <m.div
@@ -286,6 +287,37 @@ const AnimatedLink = ({
       >
         {children}
       </Link>
+    </m.div>
+  );
+};
+
+const AnimatedLinkScroll = ({
+  children,
+  className,
+  ariaDisabled,
+  scroll,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  ariaDisabled?: boolean;
+  scroll?: number;
+}) => {
+  return (
+    <m.div variants={childrenAnim}>
+      <button
+        className={`${className} px-2 hover:bg-prim hover:text-zinc-800`}
+        aria-disabled={ariaDisabled}
+        onClick={() => {
+          if (scroll) {
+            window.scrollTo({
+              top: window.innerHeight * scroll,
+              behavior: "smooth",
+            });
+          }
+        }}
+      >
+        {children}
+      </button>
     </m.div>
   );
 };

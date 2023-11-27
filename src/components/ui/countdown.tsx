@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
+import SplitLetters from "../anim/split-letters";
 
 type CountDownProps = {
   date: string;
@@ -35,8 +36,9 @@ const CountDown = ({ date }: CountDownProps) => {
   return (
     <Suspense fallback={<div>D:H:M:S</div>}>
       <div>
-        {countDown.days}D:{countDown.hours}H:{countDown.minutes}M:
-        {countDown.seconds}S
+        <SplitLetters
+          text={`${countDown.days}D:${countDown.hours}H:${countDown.minutes}M:${countDown.seconds}S`}
+        />
       </div>
     </Suspense>
   );

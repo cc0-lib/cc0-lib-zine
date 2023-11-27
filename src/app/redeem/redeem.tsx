@@ -338,7 +338,10 @@ const RedeemPage = () => {
                 onClick={() => {
                   if (isSignedIn) {
                     if (ownerToken?.isOwner && !idClaimed) {
-                      window.location.href = "#form";
+                      window.scrollTo({
+                        top: window.innerHeight,
+                        behavior: "smooth",
+                      });
                     }
                   } else {
                     setOpen(true);
