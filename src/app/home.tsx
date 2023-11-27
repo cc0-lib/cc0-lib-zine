@@ -19,10 +19,18 @@ import MainSection from "@/components/sections/main-section";
 import { ChevronUpCircle } from "lucide-react";
 import { MINT_STATE } from "@/lib/constants";
 
-const mintState: MintState = MINT_STATE;
+// const mintState: MintState = MINT_STATE;
 
-export default function HomePage({ sold }: { sold: number }) {
-  const live = mintState !== "live" ? false : true;
+export default function HomePage({
+  sold,
+  live,
+  time,
+}: {
+  sold: number;
+  live: boolean;
+  time: string;
+}) {
+  // const live = mintState !== "live" ? false : true;
   const [startScroll, setStartScroll] = useState(false);
 
   const { scrollYProgress } = useScroll();
@@ -69,7 +77,7 @@ export default function HomePage({ sold }: { sold: number }) {
             <ChevronUpCircle className="h-12 w-12 text-zinc-800 hover:opacity-50" />
           </Link>
         )}
-        <MainSection mintState={mintState} sold={sold} />
+        <MainSection live={live} sold={sold} time={time} />
         <InfoSection />
         <BuySection sold={sold} live={live} />
         <DetailsSection />

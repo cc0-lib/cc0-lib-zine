@@ -8,12 +8,13 @@ import ConnectButton from "../web3/connect-button";
 import SplitLetters from "../anim/split-letters";
 
 type Props = {
-  mintState: MintState;
+  live: boolean;
   sold: number;
+  time: string;
 };
 
-const MainSection = ({ mintState, sold }: Props) => {
-  const live = mintState !== "live" ? false : true;
+const MainSection = ({ live, sold, time }: Props) => {
+  // const live = mintState !== "live" ? false : true;
   const mainContainer = useRef(null);
   const { scrollYProgress } = useScroll({
     target: mainContainer,
@@ -184,7 +185,7 @@ const MainSection = ({ mintState, sold }: Props) => {
                 <SplitLetters text="SPECIAL EDITION 01" />
               </h1>
             ) : (
-              <CountDown date="Nov 27, 2023 00:00:00" />
+              <CountDown date={time} />
             )}
           </m.div>
           <m.div
