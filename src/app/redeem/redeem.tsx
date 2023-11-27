@@ -288,7 +288,7 @@ const RedeemPage = () => {
     <>
       <div
         id="main"
-        className="relative flex min-h-screen flex-col items-center justify-between bg-zinc-800  px-12 py-8 text-zinc-200"
+        className="relative flex min-h-screen flex-col items-center justify-between bg-zinc-800 p-8 text-zinc-200 sm:px-12 sm:py-8"
       >
         <div
           id="scroller"
@@ -303,7 +303,7 @@ const RedeemPage = () => {
           variants={animationOne}
           initial="hidden"
           animate="visible"
-          className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl"
+          className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-base sm:text-xl"
         >
           <span>REDEEM PHASE</span>
           <ConnectButton />
@@ -314,7 +314,7 @@ const RedeemPage = () => {
           animate="visible"
           className="flex flex-col items-center justify-around gap-10 font-jetbrains"
         >
-          <span className="font-chakra text-9xl uppercase text-prim">
+          <span className="text-center font-chakra text-6xl uppercase text-prim sm:text-9xl">
             <AnimatePresence mode="wait">
               {isSignedIn ? (
                 ownerToken?.isOwner ? (
@@ -347,7 +347,7 @@ const RedeemPage = () => {
                     setOpen(true);
                   }
                 }}
-                className="w-full max-w-xl text-center text-3xl uppercase"
+                className="w-full max-w-xl text-center text-lg uppercase sm:text-3xl"
               >
                 <AnimatePresence mode="wait">
                   {isSignedIn ? (
@@ -377,13 +377,13 @@ const RedeemPage = () => {
           variants={animationOne}
           initial="hidden"
           animate="visible"
-          className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl "
+          className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-base sm:text-xl"
         >
           <div className="border-2 border-prim px-8 py-2 text-center text-prim">
             <h1 className="">ONLINE</h1>
           </div>
           <Link href="/">
-            <span className="px-4 py-2 hover:bg-prim hover:text-zinc-800">
+            <span className="px-4 py-2 text-base hover:bg-prim hover:text-zinc-800 sm:text-xl">
               BACK TO HOME
             </span>
           </Link>
@@ -395,14 +395,14 @@ const RedeemPage = () => {
           initial="hidden"
           animate="visible"
           id="form"
-          className="relative flex min-h-screen flex-col items-center justify-between bg-zinc-900  px-12 py-8 text-zinc-200"
+          className="relative flex min-h-screen flex-col items-center justify-between bg-zinc-900 p-8 text-zinc-200 sm:px-12 sm:py-8"
         >
           <span></span>
-          <div className="flex flex-col items-center justify-around gap-10 font-jetbrains">
-            <span className="font-chakra text-9xl uppercase text-prim">
+          <div className="flex flex-col items-center justify-around gap-6 font-jetbrains sm:gap-10">
+            <span className="mt-8 font-chakra text-6xl uppercase text-prim sm:mt-0 sm:text-9xl">
               DETAILS
             </span>
-            <div className="flex flex-col items-center justify-around gap-4 font-jetbrains text-lg uppercase">
+            <div className="flex flex-col items-center justify-around gap-4 text-center font-jetbrains text-lg uppercase sm:text-lg">
               Details needed to redeem your physical zine
             </div>
             {/* <span className="font-chakra text-4xl">#{ownerToken?.tokenId}</span> */}
@@ -481,7 +481,7 @@ const RedeemPage = () => {
               disabled={!formValid || formSubmitted}
               className={`${
                 formValid ? "bg-prim" : "bg-zinc-700"
-              } px-8 py-4 font-chakra text-2xl uppercase text-zinc-800 hover:bg-prim/10 hover:text-zinc-200`}
+              } px-4 py-2 font-chakra text-lg uppercase text-zinc-800 hover:bg-prim/10 hover:text-zinc-200 sm:px-8 sm:py-4 sm:text-2xl`}
             >
               SUBMIT
             </button>

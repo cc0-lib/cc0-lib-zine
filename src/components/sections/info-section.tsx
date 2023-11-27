@@ -61,17 +61,17 @@ const InfoSection = (props: Props) => {
   return (
     <div
       id="info"
-      className="s2 flex h-screen w-full flex-col justify-between overflow-hidden bg-grayC px-12 py-8 font-chakra"
+      className="s2 flex h-screen w-full flex-col justify-between overflow-hidden bg-grayC p-4 font-chakra sm:px-12 sm:py-8"
     >
       <div
         ref={container}
-        className="s2 flex h-screen w-full flex-col justify-between px-12 py-8"
+        className="s2 flex h-screen w-full flex-col justify-between p-2 sm:px-12 sm:py-8"
       >
         <div className="s2-mid relative flex h-full w-full flex-col items-center justify-between">
-          <div className="relative -mb-32 flex h-full w-full items-center">
+          <div className="relative -mb-24 flex h-full w-full items-center sm:-mb-32 ">
             <m.span
               style={{ x: specialMove }}
-              className="absolute right-1/4 scale-100 text-[250px] font-bold text-grayD xl:scale-125"
+              className="absolute right-1/4 scale-100 text-[100px] font-bold text-grayD sm:text-[250px] xl:scale-125"
             >
               <SplitLetters text="SPECIAL" duration={2} />
             </m.span>
@@ -84,7 +84,7 @@ const InfoSection = (props: Props) => {
             viewport={{
               once: true,
             }}
-            className="z-10 w-full max-w-prose bg-prim p-20 text-justify font-jetbrains text-4xl font-medium uppercase"
+            className="z-10 w-full max-w-prose bg-prim p-8 text-justify font-jetbrains text-sm font-medium uppercase sm:p-20 sm:text-4xl"
           >
             {infos.map((data, index) => (
               <m.div
@@ -103,15 +103,17 @@ const InfoSection = (props: Props) => {
                   {data}
                 </span>
                 {index !== infos.length - 1 && (
-                  <span className="mr-2 self-center text-2xl">++</span>
+                  <span className="mr-2 self-center text-sm sm:text-2xl">
+                    ++
+                  </span>
                 )}
               </m.div>
             ))}
           </m.div>
-          <div className="relative -mt-32 flex h-full w-full items-center">
+          <div className="relative -mt-24 flex h-full w-full items-center sm:-mt-32">
             <m.span
               style={{ x: editionMove }}
-              className="absolute left-1/4 scale-100 text-[250px] font-bold text-grayD xl:scale-125"
+              className="absolute left-1/4 scale-100 text-[100px] font-bold text-grayD sm:text-[250px] xl:scale-125"
             >
               <SplitLetters text="EDITION" duration={2} />
             </m.span>

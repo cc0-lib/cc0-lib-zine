@@ -70,12 +70,12 @@ const CheckPageLayout = ({ children }: Props) => {
   }, [url]);
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-between bg-grayB px-12 py-8 text-zinc-800">
+    <main className="relative flex min-h-screen flex-col items-center justify-between bg-grayB p-8 text-zinc-800 sm:px-12 sm:py-8">
       <m.div
         variants={animationOne}
         initial="hidden"
         animate="visible"
-        className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl font-medium uppercase"
+        className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-base font-medium uppercase sm:text-xl"
       >
         <span>ZINE NFT CLAIM CHECKER</span>
         <div className="menu flex flex-row items-center gap-2">
@@ -83,11 +83,11 @@ const CheckPageLayout = ({ children }: Props) => {
             href={CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-2 hover:bg-prim hover:text-zinc-800"
+            className="hidden px-2 hover:bg-prim hover:text-zinc-800 sm:block"
           >
             SECONDARY
           </Link>
-          <span>/</span>
+          <span className="hidden sm:block">/</span>
           <Link
             href="/check"
             className={"px-2 hover:bg-prim hover:text-zinc-800"}
@@ -103,7 +103,7 @@ const CheckPageLayout = ({ children }: Props) => {
         variants={animationOne}
         initial="hidden"
         animate="visible"
-        className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-xl font-medium "
+        className="flex w-full flex-row items-center justify-between gap-8 font-chakra text-base font-medium sm:text-xl "
       >
         <div className="border-2 border-zinc-800 px-8 py-2 text-center">
           <h1 className="">ONLINE</h1>

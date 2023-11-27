@@ -26,16 +26,16 @@ const ConnectButton = () => {
           >
             {isConnected ? (
               isSignedIn ? (
-                <span className="px-2 text-2xl uppercase hover:bg-zinc-800 hover:text-prim">
+                <span className="px-2 text-base uppercase hover:bg-zinc-800 hover:text-prim sm:text-2xl">
                   [ {ensName ?? truncatedAddress} ]
                 </span>
               ) : (
-                <span className="px-2 text-2xl uppercase hover:bg-zinc-800 hover:text-prim">
+                <span className="px-2 text-base uppercase hover:bg-zinc-800 hover:text-prim sm:text-2xl">
                   [ sign in ]
                 </span>
               )
             ) : (
-              <span className="px-2 text-2xl uppercase hover:bg-zinc-800 hover:text-prim">
+              <span className="px-2 text-base uppercase hover:bg-zinc-800 hover:text-prim sm:text-2xl">
                 [ connect ]
               </span>
             )}

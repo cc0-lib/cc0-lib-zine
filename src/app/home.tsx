@@ -114,7 +114,7 @@ export default function HomePage({
                 whileInView="visible"
                 src="./noggles.svg"
                 alt="noggles"
-                className="h-6 hover:opacity-50"
+                className="h-4 hover:opacity-50 sm:h-6"
               />
             </Link>
             <Link
@@ -128,7 +128,7 @@ export default function HomePage({
                 whileInView="visible"
                 src="./cc0-lib-h.svg"
                 alt="cc0-lib-logo-horizontal"
-                className="h-6 hover:opacity-50"
+                className="h-4 hover:opacity-50 sm:h-6"
               />
             </Link>
           </div>

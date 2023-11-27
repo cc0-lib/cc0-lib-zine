@@ -41,7 +41,7 @@ const ClaimedPage = ({ claimed, params }: Props) => {
         variants={animationOne}
         initial="hidden"
         animate="visible"
-        className="font-chakra text-9xl uppercase text-zinc-800"
+        className="font-chakra text-6xl uppercase text-zinc-800 sm:text-9xl"
       >
         {claimed ? "CLAIMED" : "AVAILABLE"}
       </m.span>
@@ -49,7 +49,7 @@ const ClaimedPage = ({ claimed, params }: Props) => {
         variants={animationTwo}
         initial="hidden"
         animate="visible"
-        className="font-jetbrains text-lg uppercase"
+        className="font-jetbrains text-base uppercase sm:text-lg"
       >
         ID #{params.id} {claimed ? "has been claimed" : "is available"}
       </m.span>

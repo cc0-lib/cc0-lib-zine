@@ -84,9 +84,9 @@ const BuySection = ({ sold, live }: Props) => {
   return (
     <div
       id="buy"
-      className="s3 flex h-screen w-full flex-row justify-around font-chakra"
+      className="s3 flex min-h-screen w-full flex-col justify-around font-chakra sm:h-screen sm:flex-row"
     >
-      <div className="flex h-auto w-full flex-col items-center justify-around p-12">
+      <div className="flex h-screen w-full flex-col items-center justify-around p-12">
         <m.div
           variants={stagChildren}
           initial="hidden"
@@ -98,13 +98,15 @@ const BuySection = ({ sold, live }: Props) => {
             className="flex flex-col items-center gap-2"
           >
             <span className="text-sm">SPECIAL EDITION 01</span>
-            <span className="text-5xl font-medium">CC0-LIB ZINE</span>
+            <span className="text-center text-4xl font-medium sm:text-5xl">
+              CC0-LIB ZINE
+            </span>
           </m.div>
           <m.div
             variants={AnimFadeIn}
-            className="mt-16 flex flex-col items-center"
+            className="mt-8 flex flex-col items-center sm:mt-16"
           >
-            <p className="max-w-prose px-12 text-center font-jetbrains">
+            <p className="max-w-prose px-2 text-center font-jetbrains text-xs sm:px-12 sm:text-base">
               A celebration of creativity and artistic expression. Inside this
               zine, you will discover a creative haven that explores the
               captivating Nouns ecosystem, a curated collection of artworks from
@@ -254,8 +256,11 @@ const BuySection = ({ sold, live }: Props) => {
           </button> */}
         </m.div>
       </div>
-      <div data-lenis-prevent className="max-h-screen w-full overflow-y-auto">
-        <div className="flex h-[1500px] min-h-screen w-full flex-col text-center">
+      <div
+        data-lenis-prevent
+        className="max-w-screen w-full overflow-x-auto sm:max-h-screen sm:overflow-y-auto"
+      >
+        <div className="flex h-full min-h-screen w-full flex-row text-center sm:h-[1500px] sm:w-full sm:flex-col">
           <m.img
             variants={AnimImageIn}
             initial="hidden"

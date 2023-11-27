@@ -74,7 +74,7 @@ const CheckPage = (props: Props) => {
       animate="visible"
       className="flex flex-col items-center justify-around gap-10 font-jetbrains"
     >
-      <span className="max-w-prose text-center font-chakra text-6xl uppercase text-zinc-800">
+      <span className="max-w-prose text-center font-chakra text-4xl uppercase text-zinc-800 sm:text-6xl">
         PASTE THE OPENSEA LINK
       </span>
       <textarea
@@ -85,7 +85,7 @@ const CheckPage = (props: Props) => {
         rows={2}
         // eg: https://opensea.io/assets/zora/0x909de919f43fc3454c2efb863446450247c0097a/3
         placeholder="https://opensea.io/assets/zora/[collection-address]/1"
-        className="w-full max-w-prose bg-transparent text-center font-jetbrains text-lg font-normal uppercase text-zinc-800 underline focus:outline-none active:outline-none"
+        className="w-full max-w-prose bg-transparent px-4 text-center font-jetbrains text-base font-normal uppercase text-zinc-800 underline focus:outline-none active:outline-none sm:px-0 sm:text-lg"
       />
       <div>
         {info && (
@@ -93,7 +93,7 @@ const CheckPage = (props: Props) => {
             variants={animationTwo}
             initial="hidden"
             animate="visible"
-            className="max-w-prose text-center text-lg uppercase text-zinc-800"
+            className="max-w-prose text-center text-base uppercase text-zinc-800 sm:text-lg"
           >
             {info}
           </m.span>
@@ -103,7 +103,7 @@ const CheckPage = (props: Props) => {
             variants={animationTwo}
             initial="hidden"
             animate="visible"
-            className="max-w-prose text-center text-lg uppercase text-red-800"
+            className="max-w-prose text-center text-base uppercase text-red-800 sm:text-lg"
           >
             {error}
           </m.span>
