@@ -139,23 +139,24 @@ const BuySection = ({ sold, live }: Props) => {
         >
           <m.button
             variants={AnimFadeIn}
+            disabled={!live}
             onClick={() => {
               if (live) {
                 if (sold < 50) {
-                  alert("Minting");
+                  // alert("Minting");
                   open(
                     CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL,
                     "_blank",
                   );
                 } else {
-                  alert("Buying on secondary");
+                  // alert("Buying on secondary");
                   open(
                     CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL,
                     "_blank",
                   );
                 }
               } else {
-                alert("Coming soon");
+                // alert("Coming soon");
               }
             }}
             className="bg-[#2F2F2F] px-8 py-4 text-xl uppercase text-white hover:bg-prim hover:text-zinc-800"

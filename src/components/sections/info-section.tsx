@@ -5,7 +5,7 @@ import { motion as m, useTransform, useScroll, useSpring } from "framer-motion";
 import SplitLetters from "../anim/split-letters";
 
 const infos = [
-  "XX XXX 2023",
+  "30 NOV 2023 2200 GMT+8",
   "LIMITED TO 50 PCS",
   "62 PAGES",
   "NFT ON ZORA NETWORK",

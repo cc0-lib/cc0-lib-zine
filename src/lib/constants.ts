@@ -11,7 +11,10 @@ const DEMO_SOLD = 50;
 const CHAIN: ChainType = "TESTNET"; // MAINNET or TESTNET
 
 const SITE_URL =
-  "https://captured-oklahoma-bride-distributed.trycloudflare.com"; // "https://zine.cc0-lib.wtf";
+  process.env.NODE_ENV === "development"
+    ? // ? "https://captured-oklahoma-bride-distributed.trycloudflare.com"
+      process.env.NEXT_PUBLIC_VERCEL_URL
+    : "https://zine.cc0-lib.wtf";
 
 export {
   COLLECTION_ADDRESS,
