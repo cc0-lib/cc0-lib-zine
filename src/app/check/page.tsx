@@ -1,116 +1,50 @@
-"use client";
-
-import {
-  CHAIN,
-  COLLECTION_ADDRESS,
-  TEST_COLLECTION_ADDRESS,
-  TEST_ZORA_URL,
-  ZORA_URL,
-} from "@/lib/constants";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { motion as m } from "framer-motion";
+import { SITE_URL } from "@/lib/constants";
+import CheckPage from "./check";
 
 type Props = {};
 
-const CheckPage = (props: Props) => {
-  const [url, setUrl] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [info, setInfo] = useState<string>("");
+export const generateMetadata = async () => {
+  const title = `CC0-LIB ZINE | CHECK`;
+  const description = "Check and verify your Zine NFT";
+  const image = `${SITE_URL}/og/zine-og-check.png`;
+  const url = `https://zine.cc0-lib.wtf/check`;
 
-  const router = useRouter();
-
-  const animationOne = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeInOut",
-      },
+  return {
+    title: title,
+    description: description,
+    image: image,
+    url: url,
+    type: "website",
+    openGraph: {
+      title: title,
+      description: description,
+      url: url,
+      type: "website",
+      images: [
+        {
+          url: image,
+          width: 800,
+          height: 400,
+          alt: title,
+        },
+      ],
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [image],
     },
   };
+};
 
-  const animationTwo = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        delay: 0.2,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  useEffect(() => {
-    if (url) {
-      const urlSplit = url.split("/");
-      const id = urlSplit[urlSplit.length - 1];
-      const isZora = urlSplit[urlSplit.length - 3] === "zora";
-      const collection =
-        CHAIN === "TESTNET" ? TEST_COLLECTION_ADDRESS : COLLECTION_ADDRESS;
-      const isCollectionAddress = urlSplit[urlSplit.length - 2] === collection;
-      if (id && isZora && isCollectionAddress) {
-        setError("");
-        setInfo("Checking ++++ ");
-        setTimeout(() => {
-          router.push(`/check/${id}`);
-        }, 200);
-      } else {
-        setInfo("");
-        setError("Invalid URL");
-      }
-    }
-  }, [url]);
-
+const CheckHomePage = (props: Props) => {
   return (
-    <m.div
-      variants={animationTwo}
-      initial="hidden"
-      animate="visible"
-      className="flex flex-col items-center justify-around gap-10 font-jetbrains"
-    >
-      <span className="max-w-prose text-center font-chakra text-4xl uppercase text-zinc-800 sm:text-6xl">
-        PASTE THE OPENSEA LINK
-      </span>
-      <textarea
-        onChange={(e) => setUrl(e.target.value)}
-        value={url}
-        autoFocus
-        autoCorrect="off"
-        rows={2}
-        // eg: https://opensea.io/assets/zora/0x909de919f43fc3454c2efb863446450247c0097a/3
-        placeholder="https://opensea.io/assets/zora/[collection-address]/1"
-        className="w-full max-w-prose bg-transparent px-4 text-center font-jetbrains text-base font-normal uppercase text-zinc-800 underline focus:outline-none active:outline-none sm:px-0 sm:text-lg"
-      />
-      <div>
-        {info && (
-          <m.span
-            variants={animationTwo}
-            initial="hidden"
-            animate="visible"
-            className="max-w-prose text-center text-base uppercase text-zinc-800 sm:text-lg"
-          >
-            {info}
-          </m.span>
-        )}
-        {error && (
-          <m.span
-            variants={animationTwo}
-            initial="hidden"
-            animate="visible"
-            className="max-w-prose text-center text-base uppercase text-red-800 sm:text-lg"
-          >
-            {error}
-          </m.span>
-        )}
-      </div>
-    </m.div>
+    <main className="">
+      <CheckPage />
+    </main>
   );
 };
 
-export default CheckPage;
+export default CheckHomePage;

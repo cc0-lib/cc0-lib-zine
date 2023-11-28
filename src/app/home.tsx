@@ -5,9 +5,8 @@ import {
   motion as m,
   useScroll,
   useSpring,
-  useTransform,
 } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Lenis from "@studio-freight/lenis";
 
@@ -17,9 +16,6 @@ import InfoSection from "@/components/sections/info-section";
 import BuySection from "@/components/sections/buy-section";
 import MainSection from "@/components/sections/main-section";
 import { ChevronUpCircle } from "lucide-react";
-import { MINT_STATE } from "@/lib/constants";
-
-// const mintState: MintState = MINT_STATE;
 
 export default function HomePage({
   sold,
@@ -30,7 +26,6 @@ export default function HomePage({
   live: boolean;
   time: string;
 }) {
-  // const live = mintState !== "live" ? false : true;
   const [startScroll, setStartScroll] = useState(false);
 
   const { scrollYProgress } = useScroll();
@@ -90,13 +85,6 @@ export default function HomePage({
         <BuySection sold={sold} live={live} />
         <DetailsSection />
         <FaqSection />
-
-        {/* <div
-        id="separator-1"
-        className="sp-1 flex h-96 w-full flex-col items-center justify-center overflow-hidden font-chakra"
-      >
-        <img src="./images/cv-png/zine-p-3.png" className="w-full" alt="pics" />
-      </div> */}
 
         <div
           id="footer"

@@ -10,6 +10,9 @@ const MINT_STATE: MintState = "live";
 const DEMO_SOLD = 50;
 const CHAIN: ChainType = "TESTNET"; // MAINNET or TESTNET
 
+const SITE_URL =
+  "https://captured-oklahoma-bride-distributed.trycloudflare.com"; // "https://zine.cc0-lib.wtf";
+
 export {
   COLLECTION_ADDRESS,
   TEST_COLLECTION_ADDRESS,
@@ -19,4 +22,5 @@ export {
   ZORA_URL,
   TEST_ZORA_URL,
   CHAIN,
+  SITE_URL,
 };

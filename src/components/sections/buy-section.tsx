@@ -38,11 +38,9 @@ const AnimFadeIn = {
 const AnimImageIn = {
   hidden: {
     opacity: 0,
-    // clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
   },
   visible: {
     opacity: 1,
-    // clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
     transition: {
       duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
@@ -178,82 +176,6 @@ const BuySection = ({ sold, live }: Props) => {
               </m.button>
             </Link>
           )}
-
-          {/* {isConnected && (
-            <button
-              className="flex flex-row gap-4 uppercase"
-              onClick={() => openSwitchNetworks()}
-            >
-              Current Network:{" "}
-              {chain?.name === "Zora" ? (
-                <img
-                  src="./zora-logo.png"
-                  className="h-6 w-6"
-                  alt="zora-logo"
-                />
-              ) : (
-                <ChainIcon id={chain?.id} />
-              )}
-            </button>
-          )} */}
-
-          {/* {balance && (
-            <span className="flex flex-row items-center gap-2 text-sm uppercase">
-              BALANCE: {formatBalance(balance?.formatted)}{" "}
-              {chain?.nativeCurrency?.symbol}
-              {checkBalanceEnough() ? (
-                <CheckCircle className="h-4 w-4 text-green-600" />
-              ) : (
-                <XCircle className="h-4 w-4 text-red-500" />
-              )}
-            </span>
-          )} */}
-
-          {/* <button
-            onClick={() => {
-              if (sold < 50) {
-                if (isConnected) {
-                  if (chain?.name === "Zora") {
-                    if (isSignedIn) {
-                      if (live) {
-                        if (checkBalanceEnough()) {
-                          alert("Minting");
-                        } else {
-                          // alert("Insufficient balance");
-                        }
-                      } else {
-                        // alert("Minting offline");
-                      }
-                    } else {
-                      openSIWE();
-                    }
-                  } else {
-                    openSwitchNetworks();
-                  }
-                } else {
-                  setOpen(true);
-                }
-              } else {
-                alert("Sold out");
-              }
-            }}
-            className="bg-[#2F2F2F] px-8 py-4 text-2xl uppercase text-white hover:bg-prim hover:text-zinc-800"
-            disabled={sold == 50}
-          >
-            {sold < 50
-              ? isConnected
-                ? chain?.name === "Zora"
-                  ? isSignedIn
-                    ? live
-                      ? checkBalanceEnough()
-                        ? "Mint now"
-                        : "Insufficient balance"
-                      : "Minting offline"
-                    : "Sign in to mint"
-                  : "Switch Network to Zora"
-                : "Connect to mint"
-              : "Sold out"}
-          </button> */}
         </m.div>
       </div>
       <div
@@ -266,8 +188,6 @@ const BuySection = ({ sold, live }: Props) => {
             initial="hidden"
             whileInView="visible"
             className="min-h-screen w-full bg-zinc-800 object-cover"
-            // src="./images/cv-png/zine-p-12.png"
-            // src="./images/cv-png/zine-p-19.png"
             src="./gallery/1.png"
             alt=""
           />
@@ -275,8 +195,6 @@ const BuySection = ({ sold, live }: Props) => {
             variants={AnimImageIn}
             initial="hidden"
             whileInView="visible"
-            className="min-h-screen w-full bg-zinc-800 object-cover"
-            // src="./images/cv-png/zine-p-2.png"
             src="./gallery/2.png"
             alt=""
           />
@@ -285,7 +203,6 @@ const BuySection = ({ sold, live }: Props) => {
             initial="hidden"
             whileInView="visible"
             className="min-h-screen w-full bg-zinc-800 object-cover"
-            // src="./images/cv-png/zine-p-7.png"
             src="./gallery/3.png"
             alt=""
           />
@@ -294,7 +211,6 @@ const BuySection = ({ sold, live }: Props) => {
             initial="hidden"
             whileInView="visible"
             className="min-h-screen w-full bg-zinc-800 object-cover"
-            // src="./images/cv-png/zine-p-16.png"
             src="./gallery/4.png"
             alt=""
           />
@@ -303,7 +219,6 @@ const BuySection = ({ sold, live }: Props) => {
             initial="hidden"
             whileInView="visible"
             className="min-h-screen w-full bg-zinc-800 object-cover"
-            // src="./images/cv-png/zine-p-1.png"
             src="./gallery/5.png"
             alt=""
           />
@@ -312,7 +227,6 @@ const BuySection = ({ sold, live }: Props) => {
             initial="hidden"
             whileInView="visible"
             className="min-h-screen w-full bg-zinc-800 object-cover"
-            // src="./images/cv-png/zine-p-17.png"
             src="./gallery/6.png"
             alt=""
           />
@@ -321,7 +235,6 @@ const BuySection = ({ sold, live }: Props) => {
             initial="hidden"
             whileInView="visible"
             className="min-h-screen w-full bg-zinc-800 object-cover"
-            // src="./images/cv-png/zine-p-18.png"
             src="./gallery/7.png"
             alt=""
           />
