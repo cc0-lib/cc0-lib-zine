@@ -42,15 +42,10 @@ const FaqSection = (props: Props) => {
               What is CC0-LIB ZINE NFT?
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 text-left font-jetbrains">
-              We created a NFT for a digital mint of CC0-Lib Special Edition
-              Zine 01. It can be used to redeem for a physical copy of CC0-Lib
-              Zine 62-page print issue, produced by Team CC0-Lib.
-              <br />
-              <br />
               In order to receive a physical copy of the print issue, you will
-              need to mint the NFT and fill out your delivery details to receive
-              your print issue by mail. And now just wait for its arrival at
-              your doorstep.
+              need to mint the NFT and head to redeem section to fill out your
+              delivery details to receive your print issue by mail. And now just
+              wait for its arrival at your doorstep.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
@@ -75,8 +70,7 @@ const FaqSection = (props: Props) => {
               <br />
               <br />
               <ul className="list-inside list-disc">
-                <li>Keep the NFT</li>
-                <li>Sell the NFT on the secondary market</li>
+                <li>Keep / sell the NFT on the secondary market</li>
                 <li>Transfer the NFT to someone else</li>
               </ul>
             </AccordionContent>
@@ -111,7 +105,7 @@ const FaqSection = (props: Props) => {
               How many NFTs are available for minting?
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-              There are a total of 50 NFTs = 50 Pcs of physical zine available
+              There are a total of 50 NFTs = 50 pcs of physical zine available
               for public.
             </AccordionContent>
           </AccordionItem>
@@ -120,7 +114,8 @@ const FaqSection = (props: Props) => {
               How many will I be able to mint?
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-              A limit of 1 NFT per wallet. 1 NFT = 1 physical zine once redeemed
+              A limit of 1 NFT per wallet. 1 NFT = 1 physical zine once
+              redeemed.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-9">
@@ -137,8 +132,8 @@ const FaqSection = (props: Props) => {
               How long is the redemption window open for?
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-              The redemption is available from Nov 27, 2023 until February 27,
-              2024
+              The redemption is available from 9AM (EST) Nov 30, 2023 until 9AM
+              (EST) February 30, 2024.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-11">
@@ -172,7 +167,8 @@ const FaqSection = (props: Props) => {
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 font-jetbrains">
               The contents of CC0-Lib Special Edition Zine 01 will be
-              exclusively available to NFT holders only via zine.cc0-lib.wtf.
+              exclusively available to NFT holders only. More details will be
+              provided via email.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-15">
@@ -180,10 +176,10 @@ const FaqSection = (props: Props) => {
               When will I receive my physical issue?
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-              This is dependent on when you decide to redeem your NFT.
-              Generally, physical print issues will begin shipping at the end of
-              Nov, 2023. Upon redemption, the shipping time will vary based on
-              your location.
+              We will begin shipping your physical print issues on the first
+              week of December, 2023. Upon redemption, the shipping time will
+              vary based on your location. Tracking number will be provided via
+              email.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-16">
