@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  CHAIN,
-  COLLECTION_ADDRESS,
-  TEST_COLLECTION_ADDRESS,
-  TEST_ZORA_URL,
-  ZORA_URL,
-} from "@/lib/constants";
+import { COLLECTION_ADDRESS, ZORA_URL } from "@/lib/constants";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -53,8 +47,7 @@ const CheckPageLayout = ({ children }: Props) => {
       const urlSplit = url.split("/");
       const id = urlSplit[urlSplit.length - 1];
       const isZora = urlSplit[urlSplit.length - 3] === "zora";
-      const collection =
-        CHAIN === "TESTNET" ? TEST_COLLECTION_ADDRESS : COLLECTION_ADDRESS;
+      const collection = COLLECTION_ADDRESS;
       const isCollectionAddress = urlSplit[urlSplit.length - 2] === collection;
       if (id && isZora && isCollectionAddress) {
         setError("");
@@ -80,7 +73,7 @@ const CheckPageLayout = ({ children }: Props) => {
         <span>ZINE NFT CLAIM CHECKER</span>
         <div className="menu flex flex-row items-center gap-2">
           <Link
-            href={CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL}
+            href={ZORA_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden px-2 hover:bg-prim hover:text-zinc-800 sm:block"

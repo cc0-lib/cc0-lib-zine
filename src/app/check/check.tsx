@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  CHAIN,
   COLLECTION_ADDRESS,
   TEST_COLLECTION_ADDRESS,
   TEST_ZORA_URL,
@@ -51,8 +50,7 @@ const CheckPage = (props: Props) => {
       const urlSplit = url.split("/");
       const id = urlSplit[urlSplit.length - 1];
       const isZora = urlSplit[urlSplit.length - 3] === "zora";
-      const collection =
-        CHAIN === "TESTNET" ? TEST_COLLECTION_ADDRESS : COLLECTION_ADDRESS;
+      const collection = COLLECTION_ADDRESS;
       const isCollectionAddress = urlSplit[urlSplit.length - 2] === collection;
       if (id && isZora && isCollectionAddress) {
         setError("");

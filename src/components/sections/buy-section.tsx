@@ -1,6 +1,6 @@
 "use client";
 
-import { CHAIN, MINT_PRICE, TEST_ZORA_URL, ZORA_URL } from "@/lib/constants";
+import { MINT_PRICE, TEST_ZORA_URL, ZORA_URL } from "@/lib/constants";
 import { formatBalance } from "@/lib/utils/web3";
 import { ChainIcon, useModal, useSIWE } from "connectkit";
 import { CheckCircle, XCircle } from "lucide-react";
@@ -144,16 +144,10 @@ const BuySection = ({ sold, live }: Props) => {
               if (live) {
                 if (sold < 50) {
                   // alert("Minting");
-                  open(
-                    CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL,
-                    "_blank",
-                  );
+                  open(ZORA_URL, "_blank");
                 } else {
                   // alert("Buying on secondary");
-                  open(
-                    CHAIN === "TESTNET" ? TEST_ZORA_URL : ZORA_URL,
-                    "_blank",
-                  );
+                  open(ZORA_URL, "_blank");
                 }
               } else {
                 // alert("Coming soon");

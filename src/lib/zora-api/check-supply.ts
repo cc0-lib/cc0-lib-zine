@@ -1,14 +1,9 @@
 "use server";
 
-import {
-  CHAIN,
-  COLLECTION_ADDRESS,
-  TEST_COLLECTION_ADDRESS,
-} from "../constants";
+import { COLLECTION_ADDRESS } from "../constants";
 
-const chain = CHAIN === "TESTNET" ? "ZORA_GOERLI" : "ZORA_MAINNET"; // ZORA_MAINNET or ZORA_GOERLI
-const collectionAddress =
-  CHAIN === "TESTNET" ? TEST_COLLECTION_ADDRESS : COLLECTION_ADDRESS;
+const chain = "ZORA_MAINNET"; // ZORA_MAINNET or ZORA_GOERLI
+const collectionAddress = COLLECTION_ADDRESS;
 
 const oldQ = `
   query {
@@ -42,7 +37,7 @@ const checkSupply = async () => {
         // query: oldQ,
       }),
       next: {
-        revalidate: 60,
+        revalidate: 1,
       },
     });
     const data = await response.json();

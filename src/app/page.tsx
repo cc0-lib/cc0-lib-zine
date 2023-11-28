@@ -1,6 +1,5 @@
 import HomePage from "@/app/home";
 import {
-  CHAIN,
   COLLECTION_ADDRESS,
   DEMO_SOLD,
   SITE_URL,
