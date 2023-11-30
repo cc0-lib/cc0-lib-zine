@@ -42,10 +42,11 @@ const FaqSection = (props: Props) => {
               What is CC0-LIB ZINE NFT?
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 text-left font-jetbrains">
-              In order to receive a physical copy of the print issue, you will
-              need to mint the NFT and head to redeem section to fill out your
-              delivery details to receive your print issue by mail. And now just
-              wait for its arrival at your doorstep.
+              We created a NFT for a digital mint of CC0-Lib Special Edition Zine 01. It can be used to redeem for a physical copy of CC0-Lib Zine’s 62-page print issue, produced by Team CC0-Lib.
+              <br/>
+              <br/>
+
+In order to receive a physical copy of the print issue, you will need to mint the NFT and head to redeem section to fill out your delivery details to receive your print issue by mail. And now just wait for its arrival at your doorstep.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
@@ -157,8 +158,7 @@ const FaqSection = (props: Props) => {
               Can I send this NFT to someone else to redeem?
             </AccordionTrigger>
             <AccordionContent className="whitespace-pre-wrap bg-prim p-8 font-jetbrains">
-              Yes, you can gift the Zora Zine Print Issue 001 NFT to someone
-              else to redeem provided that you have not redeemed it yourself.
+              Yes, you can gift the CC0-Lib Special Edition Zine 01 NFT to someone else to redeem provided that you have not redeemed it yourself.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-14">
