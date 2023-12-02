@@ -11,7 +11,12 @@ import {
 type Props = {
   initialValue: string;
   id: string;
-  onEdit: (newValue: string, id: string, edited: boolean) => void;
+  onEdit: (
+    newValue: string,
+    id: string,
+    edited: boolean,
+    editing: boolean,
+  ) => void;
   rows?: number;
   editable?: boolean;
 };
@@ -25,7 +30,7 @@ const TextEdit = ({ initialValue, id, onEdit, rows, editable }: Props) => {
 
   const handleSave = useCallback(() => {
     if (value !== initialValue) {
-      onEdit(value, id, true);
+      onEdit(value, id, true, false);
       setIsEditing(false);
     } else {
       setIsEditing(false);
@@ -34,7 +39,7 @@ const TextEdit = ({ initialValue, id, onEdit, rows, editable }: Props) => {
 
   const handleReset = useCallback(() => {
     setValue(initialValue);
-    onEdit(initialValue, id, false);
+    onEdit(initialValue, id, false, false);
     setIsEditing(false);
   }, [initialValue, id, onEdit]);
 
@@ -57,7 +62,10 @@ const TextEdit = ({ initialValue, id, onEdit, rows, editable }: Props) => {
               value={value}
               autoFocus
               autoCorrect="off"
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => {
+                setValue(e.target.value);
+                onEdit(e.target.value, id, false, true);
+              }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSave();

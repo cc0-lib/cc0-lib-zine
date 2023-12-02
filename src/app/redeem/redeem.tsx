@@ -60,6 +60,8 @@ const RedeemPage = () => {
   const [formError, setFormError] = useState<string>("");
   const [idClaimed, setIdClaimed] = useState<boolean>(false);
   const [startScroll, setStartScroll] = useState(false);
+  const [formIsEditing, setFormIsEditing] = useState<boolean>(false);
+  const [editedFieldArray, setEditedFieldArray] = useState<string[]>([]);
 
   const nullTokenData: TokenData = {
     isOwner: false,
@@ -143,51 +145,89 @@ const RedeemPage = () => {
     newValue: string,
     id: string,
     edited: boolean,
+    editing: boolean,
   ) => {
-    if (edited) {
+    if (edited && !editing) {
       setFormData((prev) => ({
         ...prev,
         [id]: newValue,
       }));
       setFormEdited(true);
+      setEditedFieldArray((prev) => prev.filter((e) => e !== id));
+      setFormIsEditing(false);
+    } else if (!edited && editing) {
+      setEditedFieldArray((prev) => [...new Set([...prev, id])]);
+      setFormIsEditing(true);
+      setFormValid(false);
     }
   };
 
-  const handleNameChange = (newValue: string, id: string, edited: boolean) => {
-    if (edited) {
+  const handleNameChange = (
+    newValue: string,
+    id: string,
+    edited: boolean,
+    editing: boolean,
+  ) => {
+    if (edited && !editing) {
       setFormData((prev) => ({
         ...prev,
         [id]: newValue,
       }));
       setFormEdited(true);
+      setEditedFieldArray((prev) => prev.filter((e) => e !== id));
+      setFormIsEditing(false);
+    } else if (!edited && editing) {
+      setEditedFieldArray((prev) => [...new Set([...prev, id])]);
+      setFormIsEditing(true);
+      setFormValid(false);
     }
   };
   const handleSocialChange = (
     newValue: string,
     id: string,
     edited: boolean,
+    editing: boolean,
   ) => {
-    if (edited) {
+    if (edited && !editing) {
       setFormData((prev) => ({
         ...prev,
         [id]: newValue,
       }));
       setFormEdited(true);
+      setEditedFieldArray((prev) => prev.filter((e) => e !== id));
+      setFormIsEditing(false);
+    } else if (!edited && editing) {
+      setEditedFieldArray((prev) => [...new Set([...prev, id])]);
+      setFormIsEditing(true);
+      setFormValid(false);
     }
   };
-  const handleEmailChange = (newValue: string, id: string, edited: boolean) => {
-    if (edited) {
+  const handleEmailChange = (
+    newValue: string,
+    id: string,
+    edited: boolean,
+    editing: boolean,
+  ) => {
+    if (edited && !editing) {
       setFormData((prev) => ({
         ...prev,
         [id]: newValue,
       }));
       setFormEdited(true);
+      setEditedFieldArray((prev) => prev.filter((e) => e !== id));
+      setFormIsEditing(false);
+    } else if (!edited && editing) {
+      setEditedFieldArray((prev) => [...new Set([...prev, id])]);
+      setFormIsEditing(true);
+      setFormValid(false);
     }
   };
 
   const handleSubmit = async () => {
     if (!formValid) return;
     if (formSubmitted) return;
+    if (formIsEditing) return;
+    if (editedFieldArray.length > 0) return;
 
     try {
       const { data, error } = await submitForm(formData);
@@ -251,6 +291,7 @@ const RedeemPage = () => {
   }, [ownerToken]);
 
   useEffect(() => {
+    if (editedFieldArray.length > 0) return;
     const validate = FormDataSchema.safeParse(formData);
     if (validate.success) {
       setFormValid(true);
@@ -389,7 +430,7 @@ const RedeemPage = () => {
           </Link>
         </m.div>
       </div>
-      {!idClaimed && isSignedIn && (
+      {!idClaimed && isSignedIn && ownerToken?.isOwner && (
         <m.div
           variants={animationTwo}
           initial="hidden"
@@ -472,6 +513,17 @@ const RedeemPage = () => {
                     className="max-w-lg text-center text-sm text-red-500"
                   >
                     {formError}
+                  </m.span>
+                )}
+                {formIsEditing && editedFieldArray.length > 0 && (
+                  <m.span
+                    variants={animationOne}
+                    initial="hidden"
+                    animate="visible"
+                    className="text-sm text-yellow-500"
+                  >
+                    {editedFieldArray.join(" & ")} field is being edited. Please
+                    press the save button to make changes.
                   </m.span>
                 )}
               </div>
