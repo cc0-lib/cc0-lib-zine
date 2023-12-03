@@ -45,12 +45,12 @@ const RedeemPage = () => {
 
   const [ownerToken, setOwnerToken] = useState<TokenData | null>(null);
   const [formData, setFormData] = useState<FormDataType>({
-    name: "John Doe",
-    address: "Your physical address",
+    name: "",
+    address: "",
     wallet_address: address || "",
     token_id: Number(ownerToken?.tokenId),
     social: "@johndoe",
-    email: "john@doe.wtf",
+    email: "",
     created_at: new Date().toISOString(),
   });
 
