@@ -1,7 +1,7 @@
 import { getMintState, setCountDownTime, setMintState } from "@/lib/kv";
 import { NextRequest, NextResponse } from "next/server";
 
-const PASS_KEY = "kucingjalanan";
+const PASS_KEY = process.env.API_SECRET;
 
 export const GET = async (req: NextRequest) => {
   return NextResponse.json(
